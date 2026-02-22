@@ -3,8 +3,6 @@ import {
   AIInsight, 
   CalendarEvent, 
   SuggestedAction, 
-  ProductionLine, 
-  WorkOrder, 
   KnowledgeDocument, 
   Playbook 
 } from '@/types/factory';
@@ -12,365 +10,209 @@ import {
 export const kpiData: KPI[] = [
   {
     id: '1',
-    label: 'OEE',
-    value: 78.5,
+    label: 'Materiali Riciclati/Riciclabili',
+    value: 67.3,
     unit: '%',
-    trend: 'down',
-    trendValue: -2.3,
+    trend: 'up',
+    trendValue: 2.1,
     status: 'warning'
   },
   {
     id: '2',
-    label: 'Pieces per Hour',
-    value: 1247,
-    unit: 'pcs/h',
-    trend: 'up',
-    trendValue: 3.1,
-    status: 'good'
+    label: 'Carbon Footprint (vs 2023)',
+    value: -8.3,
+    unit: '%',
+    trend: 'down',
+    trendValue: -1.2,
+    status: 'warning'
   },
   {
     id: '3',
-    label: 'Scrap Rate',
-    value: 2.8,
+    label: 'Tasso Remanufacturing',
+    value: 72,
     unit: '%',
-    trend: 'down',
-    trendValue: -0.4,
+    trend: 'up',
+    trendValue: 3.5,
     status: 'good'
   },
   {
     id: '4',
-    label: 'Downtime Cost',
-    value: 12450,
-    unit: '€',
+    label: 'Margine Lordo Tailor Made',
+    value: 51.2,
+    unit: '%',
     trend: 'up',
-    trendValue: 1850,
-    status: 'critical'
+    trendValue: 1.8,
+    status: 'good'
   }
 ];
 
 export const aiInsights: AIInsight[] = [
   {
     id: '1',
-    title: 'OEE Drop Detected',
-    description: 'OEE dropped 2.3% due to micro-stoppages on Line 2. The conveyor belt sensor triggered 12 false positives between 06:00-08:00.',
+    title: 'Obiettivo Circolarità a Rischio',
+    description: 'I materiali Tailor Made sono al 58.4% di riciclato, lontani dal target 75%. Il catalogo tessuti non certificati è la causa principale.',
     severity: 'warning',
-    timestamp: '2 hours ago',
+    timestamp: '2 ore fa',
     module: 'production'
   },
   {
     id: '2',
-    title: 'Maintenance Alert',
-    description: 'Predictive analysis indicates hydraulic pump on Press #3 may fail within 72 hours. Recommend scheduling preventive maintenance.',
-    severity: 'critical',
-    timestamp: '4 hours ago',
+    title: 'Opportunità Take-Back Contract',
+    description: 'Identificati 87 clienti Contract con prodotti > 7 anni. Campagna proattiva take-back potrebbe generare +30 unità/mese e 5.2 ton CO2e risparmiata.',
+    severity: 'info',
+    timestamp: '4 ore fa',
     module: 'maintenance'
   },
   {
     id: '3',
-    title: 'Quality Trend',
-    description: 'Scrap rate improved 0.4% after implementing new inspection procedure on Line 1. Consider extending to other lines.',
+    title: 'Sinergia Canali Rilevata',
+    description: 'Clienti Contract che acquistano Tailor Made hanno LTV 2.3x superiore. Suggerito cross-selling mirato su 23 account chiave.',
     severity: 'info',
-    timestamp: '6 hours ago',
-    module: 'production'
+    timestamp: '1 giorno fa',
+    module: 'knowledge'
   }
 ];
 
 export const calendarEvents: CalendarEvent[] = [
-  { id: '1', title: 'Preventive Maintenance - Press #3', date: '2025-01-16', type: 'maintenance' },
-  { id: '2', title: 'Line 2 Changeover', date: '2025-01-17', type: 'production' },
-  { id: '3', title: 'Night Shift Training', date: '2025-01-18', type: 'shift' },
-  { id: '4', title: 'Quality Audit', date: '2025-01-20', type: 'production' },
-  { id: '5', title: 'Conveyor Belt Replacement', date: '2025-01-21', type: 'maintenance' },
-  { id: '6', title: 'Team Lead Absence', date: '2025-01-22', type: 'absence' },
-  { id: '7', title: 'Monthly Safety Review', date: '2025-01-24', type: 'shift' },
-  { id: '8', title: 'Sensor Calibration', date: '2025-01-25', type: 'maintenance' },
+  { id: '1', title: 'Audit Circolarità Q1', date: '2025-01-16', type: 'production' },
+  { id: '2', title: 'Review Take-Back Mensile', date: '2025-01-17', type: 'production' },
+  { id: '3', title: 'Training Sostenibilità Team', date: '2025-01-18', type: 'shift' },
+  { id: '4', title: 'Meeting Canali Contract', date: '2025-01-20', type: 'production' },
+  { id: '5', title: 'Certificazione Oeko-Tex', date: '2025-01-21', type: 'production' },
+  { id: '6', title: 'Fiera Retail Milano', date: '2025-01-22', type: 'shift' },
+  { id: '7', title: 'Review Carbon Footprint', date: '2025-01-24', type: 'production' },
+  { id: '8', title: 'Campagna Take-Back Launch', date: '2025-01-25', type: 'production' },
 ];
 
 export const suggestedActions: SuggestedAction[] = [
   {
     id: '1',
-    title: 'Schedule Hydraulic Pump Maintenance',
-    description: 'Press #3 hydraulic system showing early warning signs',
-    actionType: 'maintenance',
+    title: 'Aggiornare Catalogo Materiali Tailor Made',
+    description: 'Sostituire fornitori tessuti non certificati con alternative Oeko-Tex',
+    actionType: 'procedure',
     priority: 'high',
-    aiReason: 'Vibration analysis indicates 73% probability of failure within 72 hours'
+    aiReason: 'Porterebbe circolarità Tailor Made da 58.4% a ~73%, avvicinandosi al target 75%'
   },
   {
     id: '2',
-    title: 'Review Conveyor Sensor Settings',
-    description: 'Reduce micro-stoppages on Line 2',
-    actionType: 'procedure',
-    priority: 'medium',
-    aiReason: 'Current sensitivity causing 12 false positives per shift'
-  },
-  {
-    id: '3',
-    title: 'Analyze Quality Deviation Batch #4521',
-    description: 'Scrap spike detected in morning production',
+    title: 'Lanciare Campagna Take-Back Contract',
+    description: '87 clienti idonei con prodotti > 7 anni identificati nel CRM',
     actionType: 'analysis',
     priority: 'medium',
-    aiReason: 'Scrap rate 1.2% above baseline during 06:00-09:00 window'
-  }
-];
-
-export const productionLines: ProductionLine[] = [
-  {
-    id: '1',
-    name: 'Line 1',
-    piecesProduced: 4521,
-    scrapRate: 1.8,
-    topDowntimeReason: 'Planned changeover',
-    aiComment: 'Operating within target parameters. Quality metrics improved after procedure update.',
-    oee: 85.2,
-    availability: 92.1,
-    performance: 94.5,
-    quality: 97.8
-  },
-  {
-    id: '2',
-    name: 'Line 2',
-    piecesProduced: 3845,
-    scrapRate: 3.2,
-    topDowntimeReason: 'Micro-stoppages',
-    aiComment: 'Conveyor sensor causing frequent stops. Recommend recalibration.',
-    oee: 71.8,
-    availability: 78.4,
-    performance: 95.2,
-    quality: 96.1
+    aiReason: 'Potenziale +30 unità/mese, +€9,650 valore recuperato, -5.2 ton CO2e'
   },
   {
     id: '3',
-    name: 'Line 3',
-    piecesProduced: 5102,
-    scrapRate: 2.1,
-    topDowntimeReason: 'Material shortage',
-    aiComment: 'High output but supply chain delay at 14:00 caused 45min stop.',
-    oee: 79.5,
-    availability: 88.3,
-    performance: 91.8,
-    quality: 98.1
-  }
-];
-
-export const oeeChartData = [
-  { time: '06:00', oee: 82, availability: 90, performance: 93, quality: 98 },
-  { time: '08:00', oee: 78, availability: 85, performance: 94, quality: 97 },
-  { time: '10:00', oee: 75, availability: 82, performance: 95, quality: 96 },
-  { time: '12:00', oee: 80, availability: 88, performance: 93, quality: 97 },
-  { time: '14:00', oee: 72, availability: 78, performance: 95, quality: 97 },
-  { time: '16:00', oee: 79, availability: 86, performance: 94, quality: 97 },
-  { time: '18:00', oee: 81, availability: 89, performance: 93, quality: 98 },
-];
-
-export const workOrders: WorkOrder[] = [
-  {
-    id: 'WO-2024-0156',
-    asset: 'Press #3 - Hydraulic System',
-    type: 'preventive',
-    priority: 'high',
-    scheduledDate: '2025-01-16',
-    status: 'pending',
-    estimatedTime: '4 hours',
-    description: 'Replace hydraulic pump seals and check pressure levels. Vibration analysis indicated early wear patterns.',
-    safetyNotes: [
-      'Lock out/tag out required',
-      'Wear safety glasses and gloves',
-      'Ensure hydraulic pressure is released before work'
-    ],
-    spareParts: [
-      'Hydraulic pump seal kit (SKU: HP-SEAL-003)',
-      'O-rings set (SKU: OR-HYD-012)',
-      'Hydraulic fluid 5L (SKU: HF-ISO-46)'
-    ],
-    steps: [
-      'Isolate power and engage LOTO procedure',
-      'Release hydraulic pressure via relief valve',
-      'Drain hydraulic fluid into containment',
-      'Remove pump housing cover',
-      'Inspect and replace worn seals',
-      'Install new O-rings',
-      'Reassemble and refill with fresh fluid',
-      'Test under low pressure',
-      'Run full pressure test cycle'
-    ]
-  },
-  {
-    id: 'WO-2024-0157',
-    asset: 'Conveyor Belt - Line 2',
-    type: 'corrective',
+    title: 'Cross-Selling Tailor Made su Account Contract',
+    description: '23 account chiave con alta propensione all\'acquisto Tailor Made',
+    actionType: 'analysis',
     priority: 'medium',
-    scheduledDate: '2025-01-17',
-    status: 'pending',
-    estimatedTime: '2 hours',
-    description: 'Recalibrate proximity sensors causing false micro-stoppages.',
-    safetyNotes: [
-      'Wear safety vest when working near moving parts',
-      'Coordinate with production for line stoppage'
-    ],
-    spareParts: [
-      'Proximity sensor (if needed, SKU: PS-IND-024)'
-    ],
-    steps: [
-      'Stop conveyor and engage safety lock',
-      'Access sensor housing',
-      'Check sensor alignment',
-      'Adjust sensitivity settings',
-      'Test with sample products',
-      'Document new settings'
-    ]
-  },
-  {
-    id: 'WO-2024-0158',
-    asset: 'Packaging Unit A',
-    type: 'preventive',
-    priority: 'low',
-    scheduledDate: '2025-01-21',
-    status: 'pending',
-    estimatedTime: '1.5 hours',
-    description: 'Monthly lubrication and belt tension check.',
-    safetyNotes: [
-      'Standard PPE required'
-    ],
-    spareParts: [
-      'Lubricant spray (SKU: LUB-FOOD-01)'
-    ],
-    steps: [
-      'Visual inspection of all belts',
-      'Check and adjust tension',
-      'Lubricate bearing points',
-      'Clean sensors',
-      'Update maintenance log'
-    ]
-  },
-  {
-    id: 'WO-2024-0155',
-    asset: 'Robot Arm - Cell 4',
-    type: 'corrective',
-    priority: 'high',
-    scheduledDate: '2025-01-15',
-    status: 'completed',
-    estimatedTime: '3 hours',
-    description: 'Replaced faulty servo motor after positioning errors.',
-    safetyNotes: [
-      'Robot must be in safe mode',
-      'Keep clear of movement envelope'
-    ],
-    spareParts: [
-      'Servo motor (SKU: SM-ROB-007)'
-    ],
-    steps: [
-      'Put robot in safe mode',
-      'Disconnect power',
-      'Remove faulty servo',
-      'Install replacement',
-      'Recalibrate positioning',
-      'Run test program'
-    ]
+    aiReason: 'LTV medio 2.3x superiore. Stima impatto: +€18,000 margine/mese'
   }
 ];
 
 export const knowledgeDocuments: KnowledgeDocument[] = [
   {
     id: '1',
-    title: 'Press Machine Standard Operating Procedure',
+    title: 'Procedura Standard Circolarità Materiali',
     category: 'procedures',
-    tags: ['press', 'safety', 'operation'],
+    tags: ['circolarità', 'materiali', 'riciclo'],
     lastUpdated: '2025-01-10',
-    excerpt: 'Complete guide for operating hydraulic press machines including startup, operation, and shutdown procedures.'
+    excerpt: 'Guida completa per la selezione e certificazione dei materiali riciclati nelle collezioni Haworth Lifestyle.'
   },
   {
     id: '2',
-    title: 'Conveyor Belt Maintenance Guide',
+    title: 'Manuale Programma Take-Back',
     category: 'work-instructions',
-    tags: ['conveyor', 'maintenance', 'preventive'],
+    tags: ['take-back', 'remanufacturing', 'economia circolare'],
     lastUpdated: '2025-01-08',
-    excerpt: 'Step-by-step instructions for regular maintenance of conveyor systems including belt tension and sensor calibration.'
+    excerpt: 'Istruzioni per la gestione dei prodotti rientrati: valutazione, remanufacturing e smaltimento certificato.'
   },
   {
     id: '3',
-    title: 'Quality Control Standards - ISO 9001',
+    title: 'Standard Qualità Collezioni - ISO 9001',
     category: 'quality-standards',
-    tags: ['quality', 'ISO', 'compliance'],
+    tags: ['qualità', 'ISO', 'brand'],
     lastUpdated: '2024-12-15',
-    excerpt: 'Quality management standards and inspection criteria for all production lines.'
+    excerpt: 'Standard qualitativi e criteri di ispezione per tutte le collezioni Contract, Retail e Tailor Made.'
   },
   {
     id: '4',
-    title: 'Shift Handover Protocol',
-    category: 'hr-policies',
-    tags: ['shift', 'handover', 'communication'],
+    title: 'Protocollo Carbon Footprint',
+    category: 'procedures',
+    tags: ['sostenibilità', 'carbon footprint', 'emissioni'],
     lastUpdated: '2025-01-05',
-    excerpt: 'Guidelines for effective shift handover including required documentation and communication protocols.'
+    excerpt: 'Metodologia di calcolo e reporting del carbon footprint per prodotto e per canale.'
   },
   {
     id: '5',
-    title: 'Lock Out Tag Out (LOTO) Procedure',
+    title: 'Certificazioni Fornitori Oeko-Tex',
     category: 'procedures',
-    tags: ['safety', 'LOTO', 'maintenance'],
+    tags: ['fornitori', 'certificazione', 'tessuti'],
     lastUpdated: '2024-11-20',
-    excerpt: 'Mandatory safety procedure for isolating energy sources during maintenance activities.'
+    excerpt: 'Requisiti e processo di certificazione per fornitori tessuti e materiali.'
   },
   {
     id: '6',
-    title: 'Sensor Calibration Guidelines',
+    title: 'Guida Cross-Selling Canali',
     category: 'work-instructions',
-    tags: ['sensors', 'calibration', 'quality'],
+    tags: ['canali', 'cross-selling', 'tailor made'],
     lastUpdated: '2025-01-12',
-    excerpt: 'Technical guide for calibrating proximity, temperature, and pressure sensors across production equipment.'
+    excerpt: 'Strategie e procedure per il cross-selling tra canali Contract, Retail e Tailor Made.'
   }
 ];
 
 export const playbooks: Playbook[] = [
   {
     id: '1',
-    title: 'Changeover Procedure',
-    description: 'Standard procedure for product changeover on production lines',
+    title: 'Procedura Take-Back Prodotto',
+    description: 'Procedura standard per la gestione di un prodotto rientrato con il programma take-back',
     steps: [
-      { id: '1', title: 'Complete current production batch', completed: false },
-      { id: '2', title: 'Clear line of current product', completed: false },
-      { id: '3', title: 'Update line settings per product spec', completed: false, linkedDocumentId: '1' },
-      { id: '4', title: 'Replace tooling/dies if required', completed: false },
-      { id: '5', title: 'Run test pieces and verify quality', completed: false, linkedDocumentId: '3' },
-      { id: '6', title: 'Confirm with quality control', completed: false },
-      { id: '7', title: 'Resume production', completed: false }
+      { id: '1', title: 'Verificare idoneità prodotto al take-back', completed: false },
+      { id: '2', title: 'Registrare rientro nel sistema', completed: false },
+      { id: '3', title: 'Valutazione condizioni prodotto', completed: false, linkedDocumentId: '2' },
+      { id: '4', title: 'Classificare: remanufacturing / ricambi / riciclo', completed: false },
+      { id: '5', title: 'Avviare processo di remanufacturing se idoneo', completed: false, linkedDocumentId: '1' },
+      { id: '6', title: 'Controllo qualità post-remanufacturing', completed: false, linkedDocumentId: '3' },
+      { id: '7', title: 'Inserimento in catalogo Outlet', completed: false }
     ]
   },
   {
     id: '2',
-    title: 'Line Restart After Downtime',
-    description: 'Procedure for safely restarting production after unplanned downtime',
+    title: 'Onboarding Fornitore Certificato',
+    description: 'Procedura per certificare e attivare un nuovo fornitore di materiali riciclati',
     steps: [
-      { id: '1', title: 'Identify and resolve root cause', completed: false },
-      { id: '2', title: 'Complete safety inspection', completed: false, linkedDocumentId: '5' },
-      { id: '3', title: 'Check all guards and sensors', completed: false },
-      { id: '4', title: 'Run equipment in manual mode', completed: false },
-      { id: '5', title: 'Verify first piece quality', completed: false, linkedDocumentId: '3' },
-      { id: '6', title: 'Switch to automatic mode', completed: false },
-      { id: '7', title: 'Monitor for 15 minutes', completed: false }
+      { id: '1', title: 'Richiesta documentazione certificazioni', completed: false },
+      { id: '2', title: 'Verifica certificazione Oeko-Tex', completed: false, linkedDocumentId: '5' },
+      { id: '3', title: 'Campionatura e test materiali', completed: false },
+      { id: '4', title: 'Valutazione carbon footprint supply chain', completed: false, linkedDocumentId: '4' },
+      { id: '5', title: 'Approvazione qualità', completed: false, linkedDocumentId: '3' },
+      { id: '6', title: 'Inserimento in catalogo materiali certificati', completed: false },
+      { id: '7', title: 'Ordine pilota e monitoraggio', completed: false }
     ]
   },
   {
     id: '3',
-    title: 'Handling Quality Deviation',
-    description: 'Response procedure when quality issues are detected',
+    title: 'Gestione Deviazione Qualità',
+    description: 'Risposta quando vengono rilevati problemi di qualità su una collezione',
     steps: [
-      { id: '1', title: 'Stop affected production', completed: false },
-      { id: '2', title: 'Quarantine suspect products', completed: false },
-      { id: '3', title: 'Notify quality supervisor', completed: false },
-      { id: '4', title: 'Document deviation details', completed: false, linkedDocumentId: '3' },
-      { id: '5', title: 'Perform root cause analysis', completed: false },
-      { id: '6', title: 'Implement corrective action', completed: false },
-      { id: '7', title: 'Verify correction effectiveness', completed: false },
-      { id: '8', title: 'Resume production with monitoring', completed: false }
+      { id: '1', title: 'Bloccare produzione collezione impattata', completed: false },
+      { id: '2', title: 'Quarantena prodotti sospetti', completed: false },
+      { id: '3', title: 'Notificare quality supervisor', completed: false },
+      { id: '4', title: 'Documentare deviazione', completed: false, linkedDocumentId: '3' },
+      { id: '5', title: 'Root cause analysis', completed: false },
+      { id: '6', title: 'Implementare azione correttiva', completed: false },
+      { id: '7', title: 'Verificare efficacia correzione', completed: false },
+      { id: '8', title: 'Riprendere produzione con monitoraggio', completed: false }
     ]
   }
 ];
 
 export const preloadedQuestions = [
-  "Why did OEE drop yesterday?",
-  "What maintenance should I do this week to avoid downtime?",
-  "Show me the procedure for replacing sensor X",
-  "What is the cost impact of today's scrap?",
-  "Which line has the best performance this month?",
-  "What are the safety requirements for Press #3 maintenance?"
+  "Qual è la percentuale di materiali riciclati nella collezione corrente?",
+  "Come possiamo ridurre il carbon footprint del Tailor Made?",
+  "Qual è il margine lordo per canale questa settimana?",
+  "Quanti prodotti sono rientrati con il take-back questo mese?",
+  "Quali clienti Contract hanno potenziale Tailor Made?",
+  "Qual è lo stato degli obiettivi di circolarità?"
 ];

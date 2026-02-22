@@ -5,19 +5,20 @@ import { AskFactoryGPTModal } from './AskFactoryGPTModal';
 
 interface AskFactoryGPTButtonProps {
   context?: string;
+  question?: string;
 }
 
-export const AskFactoryGPTButton = ({ context }: AskFactoryGPTButtonProps) => {
+export const AskFactoryGPTButton = ({ context, question }: AskFactoryGPTButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <Button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-6 right-6 z-40 shadow-lg gap-2 bg-primary hover:bg-primary/90"
-        size="lg"
+        className="gap-2 bg-primary hover:bg-primary/90"
+        size="sm"
       >
-        <Sparkles className="w-5 h-5" />
+        <Sparkles className="w-4 h-4" />
         Ask FactoryGPT
       </Button>
 

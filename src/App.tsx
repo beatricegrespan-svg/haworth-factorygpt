@@ -7,12 +7,12 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ChatLayout } from "@/components/layout/ChatLayout";
 import { FactoryLayout } from "@/components/layout/FactoryLayout";
 import ChatPage from "@/pages/ChatPage";
-import ProductionPage from "@/pages/ProductionPage";
 import QualityPage from "@/pages/QualityPage";
-import MaintenancePage from "@/pages/MaintenancePage";
 import KnowledgePage from "@/pages/KnowledgePage";
 import CostsPage from "@/pages/CostsPage";
-import PianoProduzionePage from "@/pages/PianoProduzionePage";
+import CircularityPage from "@/pages/CircularityPage";
+import SustainabilityPage from "@/pages/SustainabilityPage";
+import ChannelsPage from "@/pages/ChannelsPage";
 import FactoryOverviewPage from "@/pages/FactoryOverviewPage";
 import NotFound from "@/pages/NotFound";
 
@@ -37,14 +37,19 @@ const App = () => (
             <Route path="/factory" element={<FactoryOverviewPage />} />
             
             {/* Factory modules with factory layout */}
-            <Route path="/production" element={
+            <Route path="/circularity" element={
               <FactoryLayout>
-                <ProductionPage />
+                <CircularityPage />
               </FactoryLayout>
             } />
-            <Route path="/production/piano" element={
+            <Route path="/sustainability" element={
               <FactoryLayout>
-                <PianoProduzionePage />
+                <SustainabilityPage />
+              </FactoryLayout>
+            } />
+            <Route path="/channels" element={
+              <FactoryLayout>
+                <ChannelsPage />
               </FactoryLayout>
             } />
             <Route path="/quality" element={
@@ -52,19 +57,14 @@ const App = () => (
                 <QualityPage />
               </FactoryLayout>
             } />
-            <Route path="/maintenance" element={
+            <Route path="/costs" element={
               <FactoryLayout>
-                <MaintenancePage />
+                <CostsPage />
               </FactoryLayout>
             } />
             <Route path="/knowledge" element={
               <FactoryLayout>
                 <KnowledgePage />
-              </FactoryLayout>
-            } />
-            <Route path="/costs" element={
-              <FactoryLayout>
-                <CostsPage />
               </FactoryLayout>
             } />
             <Route path="*" element={<NotFound />} />
