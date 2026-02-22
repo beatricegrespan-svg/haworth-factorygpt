@@ -18,6 +18,7 @@ import {
   Sparkles,
   Clock,
   Send,
+  Star,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -34,31 +35,16 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const getFactoryData = () => ({
-  oee: {
-    value: 78.5,
-    target: 85,
-    status: 'warning' as const,
-    label: 'OEE Impianto',
-  },
-  carbon: {
-    value: -8.3,
-    target: -20,
-    status: 'warning' as const,
-    label: 'Carbon Footprint vs 2023',
-  },
-  margin: {
-    value: 42.6,
-    target: 40,
-    status: 'good' as const,
-    label: 'Margine Lordo Medio',
-  },
+  oee: { value: 78.5, target: 85, status: 'warning' as const, label: 'OEE Impianto' },
+  carbon: { value: -8.3, target: -20, status: 'warning' as const, label: 'Carbon Footprint vs 2023' },
+  margin: { value: 42.6, target: 40, status: 'good' as const, label: 'Margine Lordo Medio' },
 });
 
 const recentChats = [
   { id: '1', title: 'Analisi OEE linea sedute', timestamp: '2 ore fa' },
   { id: '2', title: 'Carbon footprint Tailor Made', timestamp: 'Ieri' },
   { id: '3', title: 'Margini canale Contract', timestamp: '3 giorni fa' },
-  { id: '4', title: 'Programma take-back', timestamp: '5 giorni fa' },
+  { id: '4', title: 'Rating fornitori ESG', timestamp: '5 giorni fa' },
 ];
 
 const getStatusColor = (status: 'good' | 'warning' | 'critical') => {
@@ -91,25 +77,16 @@ export default function FactoryOverviewPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [requestAgentOpen, setRequestAgentOpen] = useState(false);
-  const [agentForm, setAgentForm] = useState({
-    sintesi: '',
-    descrizione: '',
-    comeOggi: 'non_viene_fatto',
-    altroText: '',
-  });
+  const [agentForm, setAgentForm] = useState({ sintesi: '', descrizione: '', comeOggi: 'non_viene_fatto', altroText: '' });
   const [agentSubmitted, setAgentSubmitted] = useState(false);
   const { language: lang, setLanguage: setLang, t } = useLanguage();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setData(getFactoryData());
-    }, 30000);
+    const interval = setInterval(() => setData(getFactoryData()), 30000);
     return () => clearInterval(interval);
   }, []);
 
-  const handleNewChat = () => {
-    navigate('/');
-  };
+  const handleNewChat = () => navigate('/');
 
   const handleAgentSubmit = () => {
     setAgentSubmitted(true);
@@ -124,14 +101,13 @@ export default function FactoryOverviewPage() {
     { label: t('produzioneAI'), icon: Factory, path: '/production', description: t('descProduzione') },
     { label: t('sostenibilitaCircolaritaAI'), icon: Leaf, path: '/sustainability', description: t('descSostenibilita') },
     { label: t('canaliSinergieAI'), icon: BarChart3, path: '/channels', description: t('descCanali') },
-    { label: t('qualitaBrandAI'), icon: CheckCircle, path: '/quality', description: t('descQualita') },
+    { label: t('ratingFornitoriAI'), icon: Star, path: '/suppliers', description: t('descFornitori') },
     { label: t('costiMarginalitaAI'), icon: DollarSign, path: '/costs', description: t('descCosti') },
     { label: t('khaiLabel'), icon: BookOpen, path: '/knowledge', description: t('descKnowledge') },
   ];
 
   const filteredChats = recentChats.filter(chat => 
-    searchQuery === '' || 
-    chat.title.toLowerCase().includes(searchQuery.toLowerCase())
+    searchQuery === '' || chat.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -167,7 +143,6 @@ export default function FactoryOverviewPage() {
               ))}
             </>
           )}
-          {sidebarCollapsed && <button className="w-full flex justify-center py-2.5 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/5 transition-colors" title={t('searchChats')}><Search className="w-5 h-5" /></button>}
         </nav>
         <div className="p-3 border-t border-white/10">
           <button onClick={() => setSidebarCollapsed(!sidebarCollapsed)} className={cn("w-full flex items-center gap-3 px-3 py-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/5 transition-colors", sidebarCollapsed && "justify-center px-2")}>
@@ -196,17 +171,14 @@ export default function FactoryOverviewPage() {
           <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.oee.status))}>
             <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.oee.label}</span>{getStatusIcon(data.oee.status)}</div>
             <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.oee.status))}>{data.oee.value}%</span><span className="text-xs text-white/40">/ {data.oee.target}%</span></div>
-            <div className="mt-2 text-[10px] text-white/50">Target OEE impianto</div>
           </div>
           <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.carbon.status))}>
             <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.carbon.label}</span>{getStatusIcon(data.carbon.status)}</div>
             <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.carbon.status))}>{data.carbon.value}%</span><span className="text-xs text-white/40">target {data.carbon.target}%</span></div>
-            <div className="mt-2 text-[10px] text-white/50">Obiettivo decarbonizzazione annuale</div>
           </div>
           <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.margin.status))}>
             <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.margin.label}</span>{getStatusIcon(data.margin.status)}</div>
             <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.margin.status))}>{data.margin.value}%</span><span className="text-xs text-white/40">target {data.margin.target}%</span></div>
-            <div className="mt-2 text-[10px] text-white/50">Contract + Retail + Tailor Made</div>
           </div>
         </div>
 
@@ -215,7 +187,7 @@ export default function FactoryOverviewPage() {
           <img src={factoryGptLogo} alt="FactoryGPT" className="relative w-48 h-48 object-contain rounded-full" style={{ filter: 'drop-shadow(0 0 30px hsl(var(--primary) / 0.5))' }} />
         </button>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full max-w-5xl">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 w-full max-w-4xl">
           {appModules.map((module) => (
             <button key={module.label} onClick={() => navigate(module.path)} className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/40 rounded-2xl p-6 text-center transition-all duration-200 hover:scale-[1.02]">
               <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-3 transition-colors"><module.icon className="w-7 h-7 text-primary" /></div>
@@ -223,12 +195,12 @@ export default function FactoryOverviewPage() {
               <p className="text-[10px] text-white/50">{module.description}</p>
             </button>
           ))}
-        </div>
-
-        <div className="mt-8">
-          <Button onClick={() => setRequestAgentOpen(true)} variant="outline" className="gap-2 border-primary/30 text-primary hover:text-primary hover:bg-primary/10">
-            <Plus className="w-4 h-4" />{t('requestAgent')}
-          </Button>
+          {/* Request an Agent card */}
+          <button onClick={() => setRequestAgentOpen(true)} className="group bg-transparent hover:bg-white/5 border-2 border-dashed border-white/20 hover:border-primary/40 rounded-2xl p-6 text-center transition-all duration-200 hover:scale-[1.02]">
+            <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-3 transition-colors"><Sparkles className="w-7 h-7 text-primary" /></div>
+            <h3 className="font-semibold text-white text-sm mb-1">{t('requestAgent')}</h3>
+            <p className="text-[10px] text-white/50">{t('requestAgentDesc')}</p>
+          </button>
         </div>
 
         <Dialog open={requestAgentOpen} onOpenChange={(open) => { setRequestAgentOpen(open); if (!open) { setAgentSubmitted(false); setAgentForm({ sintesi: '', descrizione: '', comeOggi: 'non_viene_fatto', altroText: '' }); } }}>

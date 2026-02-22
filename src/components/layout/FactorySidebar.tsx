@@ -5,11 +5,11 @@ import {
   ChevronLeft,
   ChevronRight,
   DollarSign,
-  CheckCircle,
   Home,
   Leaf,
   BarChart3,
-  Factory
+  Factory,
+  Star
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ export const FactorySidebar = ({ onBackToChat }: FactorySidebarProps) => {
     { path: '/production', label: t('produzioneAI'), icon: Factory },
     { path: '/sustainability', label: t('sostenibilitaCircolaritaAI'), icon: Leaf },
     { path: '/channels', label: t('canaliSinergieAI'), icon: BarChart3 },
-    { path: '/quality', label: t('qualitaBrandAI'), icon: CheckCircle },
+    { path: '/suppliers', label: t('ratingFornitoriAI'), icon: Star },
     { path: '/costs', label: t('costiMarginalitaAI'), icon: DollarSign },
     { path: '/knowledge', label: t('khaiLabel'), icon: BookOpen },
   ];

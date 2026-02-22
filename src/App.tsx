@@ -8,11 +8,11 @@ import { ChatLayout } from "@/components/layout/ChatLayout";
 import { FactoryLayout } from "@/components/layout/FactoryLayout";
 import ChatPage from "@/pages/ChatPage";
 import ProductionPage from "@/pages/ProductionPage";
-import QualityPage from "@/pages/QualityPage";
 import KnowledgePage from "@/pages/KnowledgePage";
 import CostsPage from "@/pages/CostsPage";
 import SustainabilityPage from "@/pages/SustainabilityPage";
 import ChannelsPage from "@/pages/ChannelsPage";
+import SuppliersPage from "@/pages/SuppliersPage";
 import FactoryOverviewPage from "@/pages/FactoryOverviewPage";
 import NotFound from "@/pages/NotFound";
 
@@ -52,9 +52,9 @@ const App = () => (
                 <ChannelsPage />
               </FactoryLayout>
             } />
-            <Route path="/quality" element={
+            <Route path="/suppliers" element={
               <FactoryLayout>
-                <QualityPage />
+                <SuppliersPage />
               </FactoryLayout>
             } />
             <Route path="/costs" element={
