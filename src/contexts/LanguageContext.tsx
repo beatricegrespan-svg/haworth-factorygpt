@@ -14,29 +14,32 @@ const translations = {
     // Sidebar
     factoryGPTChat: 'FactoryGPT Chat',
     factoryHub: 'Haworth Hub',
-    circolaritaAI: 'Circolarità AI',
-    sostenibilitaAI: 'Sostenibilità AI',
+    produzioneAI: 'Produzione AI',
+    sostenibilitaCircolaritaAI: 'Sostenibilità & Circolarità AI',
     canaliSinergieAI: 'Canali & Sinergie',
     qualitaBrandAI: 'Qualità & Brand',
     costiMarginalitaAI: 'Costi & Marginalità',
     khaiLabel: 'KHAI - Know How Aziendale AI',
     collapse: 'Comprimi',
 
-    // New translation keys
-    materialiRiciclati: 'Materiali Riciclati/Riciclabili',
+    // KPI labels
+    oeeImpianto: 'OEE Impianto',
+    tassoScarti: 'Tasso Scarti',
     tassoRemanufacturing: 'Tasso Remanufacturing',
-    prodottiTakeBack: 'Prodotti Take-Back',
-    wasteToLandfill: 'Waste-to-Landfill',
     carbonFootprint: 'Carbon Footprint (vs 2023)',
+    materialiRiciclati: 'Materiali Riciclati/Riciclabili',
+    prodottiTakeBack: 'Prodotti Take-Back (mese)',
+    wasteToLandfill: 'Waste-to-Landfill',
     energiaRinnovabile: 'Energia Rinnovabile',
     co2Evitata: 'CO2e Evitata (take-back)',
     revenueContract: 'Revenue Contract',
     revenueRetail: 'Revenue Retail',
     revenueTailorMade: 'Revenue Tailor Made',
     margineLoredoMedio: 'Margine Lordo Medio',
-    targetCircolarita: 'Target Circolarità',
-    flussoTakeBack: 'Flusso Prodotti Take-Back',
-    crossSellPotential: 'Potenziale Cross-Sell',
+
+    // Tab labels
+    sostenibilitaTab: 'Sostenibilità',
+    circolaritaTab: 'Circolarità',
 
     // HomePage
     commandCenter: 'Centro di Comando',
@@ -126,7 +129,7 @@ const translations = {
 
     // FactoryGPTChat
     welcomeMessage: 'Ciao Ervino, cosa vuoi sapere su Haworth Lifestyle oggi?',
-    chatPlaceholder: 'Chiedimi informazioni su circolarità, sostenibilità, canali di vendita o qualità.',
+    chatPlaceholder: 'Chiedimi informazioni su produzione, sostenibilità, canali di vendita o qualità.',
     newChat: 'Nuova chat',
     goToFactory: 'Portami a Haworth Hub',
     typeMessage: 'Scrivi un messaggio...',
@@ -158,8 +161,8 @@ const translations = {
     submitRequest: 'Invia Richiesta',
     requestSubmitted: 'Richiesta inviata!',
     wellGetBack: 'Ti contatteremo presto.',
-    descCircolarita: '% materiali riciclati e take-back',
-    descSostenibilita: 'Carbon footprint e decarbonizzazione',
+    descProduzione: 'OEE, scarti e linee di produzione',
+    descSostenibilita: 'Carbon footprint, take-back e materiali',
     descCanali: 'Contract, Retail, Tailor Made',
     descQualita: 'Standard qualitativi e brand',
     descCosti: 'COGS e margini per canale',
@@ -182,29 +185,32 @@ const translations = {
     // Sidebar
     factoryGPTChat: 'FactoryGPT Chat',
     factoryHub: 'Haworth Hub',
-    circolaritaAI: 'Circularity AI',
-    sostenibilitaAI: 'Sustainability AI',
+    produzioneAI: 'Production AI',
+    sostenibilitaCircolaritaAI: 'Sustainability & Circularity AI',
     canaliSinergieAI: 'Channels & Synergies',
     qualitaBrandAI: 'Quality & Brand',
     costiMarginalitaAI: 'Costs & Margins',
     khaiLabel: 'KHAI - Company Know How AI',
     collapse: 'Collapse',
 
-    // New translation keys
-    materialiRiciclati: 'Recycled/Recyclable Materials',
+    // KPI labels
+    oeeImpianto: 'Plant OEE',
+    tassoScarti: 'Scrap Rate',
     tassoRemanufacturing: 'Remanufacturing Rate',
-    prodottiTakeBack: 'Take-Back Products',
-    wasteToLandfill: 'Waste-to-Landfill',
     carbonFootprint: 'Carbon Footprint (vs 2023)',
+    materialiRiciclati: 'Recycled/Recyclable Materials',
+    prodottiTakeBack: 'Take-Back Products (month)',
+    wasteToLandfill: 'Waste-to-Landfill',
     energiaRinnovabile: 'Renewable Energy',
     co2Evitata: 'CO2e Avoided (take-back)',
     revenueContract: 'Contract Revenue',
     revenueRetail: 'Retail Revenue',
     revenueTailorMade: 'Tailor Made Revenue',
     margineLoredoMedio: 'Average Gross Margin',
-    targetCircolarita: 'Circularity Target',
-    flussoTakeBack: 'Take-Back Product Flow',
-    crossSellPotential: 'Cross-Sell Potential',
+
+    // Tab labels
+    sostenibilitaTab: 'Sustainability',
+    circolaritaTab: 'Circularity',
 
     // HomePage
     commandCenter: 'Command Center',
@@ -294,7 +300,7 @@ const translations = {
 
     // FactoryGPTChat
     welcomeMessage: 'Hi Ervino, what do you want to know about Haworth Lifestyle today?',
-    chatPlaceholder: 'Ask me about circularity, sustainability, sales channels, or quality.',
+    chatPlaceholder: 'Ask me about production, sustainability, sales channels, or quality.',
     newChat: 'New chat',
     goToFactory: 'Go to Haworth Hub',
     typeMessage: 'Type a message...',
@@ -326,8 +332,8 @@ const translations = {
     submitRequest: 'Submit Request',
     requestSubmitted: 'Request submitted!',
     wellGetBack: "We'll get back to you soon.",
-    descCircolarita: 'Recycled materials & take-back',
-    descSostenibilita: 'Carbon footprint & decarbonization',
+    descProduzione: 'OEE, scrap and production lines',
+    descSostenibilita: 'Carbon footprint, take-back & materials',
     descCanali: 'Contract, Retail, Tailor Made',
     descQualita: 'Quality standards & brand',
     descCosti: 'COGS and margins by channel',

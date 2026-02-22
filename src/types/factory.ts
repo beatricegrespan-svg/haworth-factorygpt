@@ -3,6 +3,7 @@ export interface KPI {
   label: string;
   value: number;
   unit: string;
+  target?: number;
   trend: 'up' | 'down' | 'stable';
   trendValue: number;
   status: 'good' | 'warning' | 'critical';

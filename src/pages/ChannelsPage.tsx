@@ -2,15 +2,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ModuleAIButtons } from '@/components/ai/ModuleAIButtons';
 import { TrendingUp, Sparkles } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, ReferenceLine } from 'recharts';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { AskFactoryGPTButton } from '@/components/ai/AskFactoryGPTButton';
 
 const channelKPIs = [
-  { label: 'Revenue Contract', value: '€142,000', trend: '+3.2%', status: 'good' },
-  { label: 'Revenue Retail', value: '€67,500', trend: '+1.8%', status: 'good' },
-  { label: 'Revenue Tailor Made', value: '€37,200', trend: '+7.4%', status: 'good' },
-  { label: 'Margine Lordo Medio', value: '42.6%', trend: '+1.1%', status: 'good' },
+  { label: 'Revenue Contract', value: 142000, unit: '€', target: 130000, trend: '+3.2%', status: 'good' },
+  { label: 'Revenue Retail', value: 67500, unit: '€', target: 65000, trend: '+1.8%', status: 'good' },
+  { label: 'Revenue Tailor Made', value: 37200, unit: '€', target: 35000, trend: '+7.4%', status: 'good' },
+  { label: 'Margine Lordo Medio', value: 42.6, unit: '%', target: 40, trend: '+1.1%', status: 'good' },
 ];
 
 const revenueMix = [
@@ -20,9 +20,9 @@ const revenueMix = [
 ];
 
 const marginByChannel = [
-  { channel: 'Contract', margin: 38.4 },
-  { channel: 'Retail', margin: 42.1 },
-  { channel: 'Tailor Made', margin: 51.2 },
+  { channel: 'Contract', margin: 38.4, target: 36 },
+  { channel: 'Retail', margin: 42.1, target: 40 },
+  { channel: 'Tailor Made', margin: 51.2, target: 48 },
 ];
 
 const tailorMadeTrend = [
@@ -60,8 +60,9 @@ const ChannelsPage = () => {
         {channelKPIs.map((kpi) => (
           <Card key={kpi.label} className="kpi-card">
             <span className="kpi-label">{kpi.label}</span>
-            <div className="kpi-value mt-1">{kpi.value}</div>
-            <div className="flex items-center gap-1 mt-2 text-sm">
+            <div className="kpi-value mt-1">{kpi.unit === '€' ? `€${kpi.value.toLocaleString()}` : `${kpi.value}%`}</div>
+            <p className="text-xs text-muted-foreground">Target: {kpi.unit === '€' ? `€${kpi.target.toLocaleString()}` : `${kpi.target}%`}</p>
+            <div className="flex items-center gap-1 mt-1 text-sm">
               <TrendingUp className="w-4 h-4 text-emerald-500" />
               <span className="text-emerald-500">{kpi.trend}</span>
             </div>
@@ -107,7 +108,7 @@ const ChannelsPage = () => {
 
         {/* Margin by Channel */}
         <Card>
-          <CardHeader><CardTitle className="text-lg">Margine Lordo per Canale</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-lg">Margine Lordo per Canale vs Target</CardTitle></CardHeader>
           <CardContent>
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
@@ -116,7 +117,7 @@ const ChannelsPage = () => {
                   <XAxis dataKey="channel" />
                   <YAxis domain={[0, 60]} tickFormatter={(v) => `${v}%`} />
                   <Tooltip formatter={(value: number) => `${value}%`} />
-                  <Bar dataKey="margin" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="margin" fill="hsl(142, 71%, 45%)" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -173,9 +174,8 @@ const ChannelsPage = () => {
             <h4 className="font-semibold">AI Insight — Canali & Sinergie</h4>
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            I clienti Contract che hanno acquistato almeno un prodotto Tailor Made mostrano un LTV 2.3x superiore alla media. 
-            Attivare una campagna di cross-selling mirata sui 23 account chiave identificati potrebbe generare +€18,000 di margine mensile, 
-            portando il peso Tailor Made al 20% del revenue totale.
+            I clienti Contract che acquistano Tailor Made hanno LTV 2.3x superiore. Attivare una campagna di cross-selling sui 23 account chiave 
+            potrebbe generare +€18,000 di margine mensile, portando il peso Tailor Made al 20% del revenue totale.
           </p>
           <div className="mt-4">
             <AskFactoryGPTButton question="Come si distribuisce il margine lordo tra i canali Contract, Retail e Tailor Made?" />

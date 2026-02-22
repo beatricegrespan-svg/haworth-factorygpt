@@ -90,7 +90,7 @@ export const skuCosts: SKUCost[] = [
     id: '1',
     sku: 'FRN-FERN-C',
     name: 'Haworth Fern Contract',
-    unitsProduced: 245,
+    unitsProduced: 1820,
     cogsPerUnit: 285,
     scrapCostAllocation: 1850,
     trendVsPrevious: 1.8,
@@ -99,13 +99,13 @@ export const skuCosts: SKUCost[] = [
     energyPerUnit: 28,
     overheadPerUnit: 32,
     scrapPerUnit: 15,
-    scrapRate: 1.8
+    scrapRate: 2.9
   },
   {
     id: '2',
     sku: 'FRN-VERY-TM',
     name: 'Very Task Chair TM',
-    unitsProduced: 82,
+    unitsProduced: 300,
     cogsPerUnit: 420,
     scrapCostAllocation: 2100,
     trendVsPrevious: 2.4,
@@ -114,13 +114,13 @@ export const skuCosts: SKUCost[] = [
     energyPerUnit: 38,
     overheadPerUnit: 52,
     scrapPerUnit: 25,
-    scrapRate: 2.4
+    scrapRate: 3.6
   },
   {
     id: '3',
     sku: 'FRN-WORK-STD',
     name: 'Workwall Standard',
-    unitsProduced: 48,
+    unitsProduced: 620,
     cogsPerUnit: 890,
     scrapCostAllocation: 3200,
     trendVsPrevious: 1.2,
@@ -129,13 +129,13 @@ export const skuCosts: SKUCost[] = [
     energyPerUnit: 72,
     overheadPerUnit: 120,
     scrapPerUnit: 33,
-    scrapRate: 1.2
+    scrapRate: 1.8
   },
   {
     id: '4',
     sku: 'FRN-LOUNGE-R',
     name: 'Lounge Retail Collection',
-    unitsProduced: 125,
+    unitsProduced: 870,
     cogsPerUnit: 650,
     scrapCostAllocation: 2800,
     trendVsPrevious: 2.1,
@@ -144,13 +144,13 @@ export const skuCosts: SKUCost[] = [
     energyPerUnit: 55,
     overheadPerUnit: 78,
     scrapPerUnit: 35,
-    scrapRate: 2.1
+    scrapRate: 1.8
   },
   {
     id: '5',
     sku: 'FRN-DIVIDER',
     name: 'Acoustic Dividers',
-    unitsProduced: 310,
+    unitsProduced: 1240,
     cogsPerUnit: 175,
     scrapCostAllocation: 1250,
     trendVsPrevious: -0.5,
@@ -159,7 +159,7 @@ export const skuCosts: SKUCost[] = [
     energyPerUnit: 18,
     overheadPerUnit: 22,
     scrapPerUnit: 5,
-    scrapRate: 1.5
+    scrapRate: 1.8
   }
 ];
 
