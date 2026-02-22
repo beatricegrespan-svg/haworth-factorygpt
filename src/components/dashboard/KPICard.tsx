@@ -27,10 +27,13 @@ export const KPICard = ({ kpi }: KPICardProps) => {
         <span className="kpi-label">{kpi.label}</span>
         <span className={cn('status-badge', kpi.status === 'good' && 'status-good', kpi.status === 'warning' && 'status-warning', kpi.status === 'critical' && 'status-critical')}>{kpi.status}</span>
       </div>
-      <div className="kpi-value mb-2">
+      <div className="kpi-value mb-1">
         {formatValue(kpi.value, kpi.unit)}
         {kpi.unit !== '%' && kpi.unit !== '€' && <span className="text-lg font-normal text-muted-foreground ml-1">{kpi.unit}</span>}
       </div>
+      {kpi.target !== undefined && (
+        <p className="text-xs text-muted-foreground">Target: {kpi.target}{kpi.unit}</p>
+      )}
       <div className={cn('flex items-center gap-1 text-sm font-medium',
         kpi.trend === 'up' && kpi.label !== 'Downtime Cost' && kpi.label !== 'Scrap Rate' ? 'kpi-trend-up' 
         : kpi.trend === 'down' && (kpi.label === 'Downtime Cost' || kpi.label === 'Scrap Rate') ? 'kpi-trend-up'

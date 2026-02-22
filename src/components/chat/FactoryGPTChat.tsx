@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Sparkles, FileText, ArrowRight, ArrowLeft, RefreshCw, Leaf, BarChart3 } from 'lucide-react';
+import { Send, Sparkles, FileText, ArrowRight, ArrowLeft, RefreshCw, Leaf, BarChart3, Factory } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ChatMessage } from '@/types/factory';
 import { Button } from '@/components/ui/button';
@@ -12,37 +12,37 @@ interface FactoryGPTChatProps {
 }
 
 const mockResponses: Record<string, { content: string; references?: string[]; navigateTo?: string }> = {
-  "circularity_materials": {
-    content: "**Analisi Materiali Riciclati — Collezione Corrente:**\n\n**% Materiali Riciclati/Riciclabili: 67.3%** ⚠️ (target trimestrale: 75%)\n\n**Dettaglio per categoria prodotto:**\n- Sedute Contract: 74.2% ✓ (in linea con target)\n- Tavoli & Superfici: 71.8% ✓\n- Accessori & Soft: 48.1% ⚠️ (sotto target — materiali tessili limitanti)\n- Tailor Made: 58.4% ⚠️ (personalizzazioni riducono % riciclato)\n\n**Materiali critici:**\nI tessuti Tailor Made provengono per il 42% da filiere non certificate. Sostituire con fornitori Oeko-Tex certificati porterebbe la % complessiva al 73.1%.\n\n**Azione raccomandata:** Aggiornare il catalogo materiali Tailor Made con alternative riciclate certificate. Risparmio stimato CO2: 18 ton CO2e/anno.",
-    references: ["Catalogo Materiali Certificati", "Report Circolarità Q1 2025"]
+  "oee_production": {
+    content: "**OEE per Linea di Produzione — Oggi:**\n\n**OEE medio impianto: 78.5%** ⚠️ (target: 85%)\n\n**Dettaglio per linea:**\n- Linea Sedute Contract: **74.1%** ⚠️ (-2.3% vs ieri)\n- Linea Tavoli & Superfici: **81.2%** ⚠️\n- Linea Retail Standard: **83.5%** ⚠️\n- Linea Tailor Made: **76.8%** ⚠️\n\n**Principali cause di perdita OEE:**\n1. **Linea Sedute Contract** — micro-fermate nastro assemblaggio imbottitura (sensore prossimità da ricalibcare): -6.1%\n2. **Linea Tailor Made** — changeover setup frequenti per personalizzazioni: -4.2%\n3. **Linea Tavoli** — attesa materiali da magazzino (45 min fermo): -3.8%\n\n**Tasso Scarti attuale: 2.8%** ⚠️ (target: 2.0%)\n- Linea TM: 3.6% ⚠️ (rifilatura legno fuori tolleranza)\n- Linea Sedute: 2.9% ⚠️\n- Linea Retail: 1.8% ✓\n\n**Azione raccomandata:** Ricalibrazione sensore Linea Sedute Contract stima recupero +4.2% OEE e +85 unità/giorno.",
+    references: ["Dashboard Produzione", "Report OEE Giornaliero"]
   },
   "carbon_footprint": {
-    content: "**Carbon Footprint per Prodotto — Contract vs Tailor Made:**\n\n**Media CO2e per unità prodotta:**\n- Contract Standard: **12.4 kg CO2e/unità** ✓\n- Tailor Made: **19.7 kg CO2e/unità** ⚠️ (+59% vs Contract)\n- Retail: **14.1 kg CO2e/unità**\n\n**Cause principali del gap Tailor Made:**\n1. Materiali non standardizzati → supply chain più lunga (+4.2 kg CO2e)\n2. Lavorazioni aggiuntive e setup macchine (+2.1 kg CO2e)\n3. Spedizioni parziali più frequenti (+1.0 kg CO2e)\n\n**Opportunità di riduzione:**\n- Consolidare ordini Tailor Made in batch settimanali: -1.2 kg CO2e/unità\n- Fornitori tessuti locali certificati: -2.8 kg CO2e/unità\n- Obiettivo raggiungibile: 15.7 kg CO2e/unità entro Q3 2025\n\n**Target annuale Haworth Lifestyle: -20% carbon footprint vs 2023** → attualmente a -8.3%.",
+    content: "**Carbon Footprint per Prodotto — Contract vs Tailor Made:**\n\n**Media CO2e per unità prodotta:**\n- Contract Standard: **12.4 kg CO2e/unità** ✓ (target: 12.0)\n- Retail: **14.1 kg CO2e/unità** ⚠️\n- Tailor Made: **19.7 kg CO2e/unità** ⚠️ (+59% vs Contract)\n\n**Cause principali del gap Tailor Made:**\n1. Materiali non standardizzati → supply chain più lunga (+4.2 kg CO2e)\n2. Lavorazioni aggiuntive e setup macchine (+2.1 kg CO2e)\n3. Spedizioni parziali più frequenti (+1.0 kg CO2e)\n\n**Opportunità di riduzione:**\n- Fornitori tessuti locali certificati Oeko-Tex: -2.8 kg CO2e/unità\n- Consolidare ordini TM in batch settimanali: -1.2 kg CO2e/unità\n- Obiettivo raggiungibile: **15.7 kg CO2e/unità** entro Q3 2025\n\n**Progressione target annuale -20% vs 2023:** attualmente a **-8.3%** ⚠️\nSostituendo il fornitore tessuti, si raggiungerebbe -22%, superando il target.",
     references: ["Report Carbon Footprint 2025", "Piano Decarbonizzazione Haworth"]
   },
   "channel_margins": {
-    content: "**Margine Lordo per Canale — Settimana Corrente:**\n\n**Contract B2B: 38.4%** ✓ (target: 36%)\n**Retail: 42.1%** ✓ (target: 40%)\n**Tailor Made: 51.2%** ✓✓ (target: 48%)\n\n**Revenue mix questa settimana:**\n- Contract: €142,000 (58% del totale) → margine €54,528\n- Retail: €67,500 (27%) → margine €28,418\n- Tailor Made: €37,200 (15%) → margine €19,046\n\n**Insight AI:**\nIl canale Tailor Made ha il margine più alto ma pesa solo il 15% del revenue. Aumentare il mix Tailor Made al 20% (senza ridurre Contract) porterebbe un incremento margine di ~€12,000/settimana.\n\n**Sinergia rilevata:** I clienti Contract che hanno acquistato Tailor Made negli ultimi 6 mesi hanno un LTV 2.3x superiore alla media.",
+    content: "**Margine Lordo per Canale — Settimana Corrente:**\n\n**Contract B2B: 38.4%** ✓ (target: 36%)\n**Retail: 42.1%** ✓ (target: 40%)\n**Tailor Made: 51.2%** ✓ (target: 48%)\n\n**Revenue mix questa settimana:**\n- Contract: €142,000 (58% del totale) → margine €54,528\n- Retail: €67,500 (27%) → margine €28,418\n- Tailor Made: €37,200 (15%) → margine €19,046\n\n**Insight AI:**\nIl canale Tailor Made ha il margine più alto (+12.8pp vs Contract) ma pesa solo il 15% del revenue. Aumentare il mix TM al 20% porterebbe un incremento margine di ~€12,000/settimana.\n\n**Sinergia rilevata:** I clienti Contract che hanno acquistato Tailor Made negli ultimi 6 mesi hanno un LTV 2.3x superiore alla media.",
     references: ["Dashboard Canali", "Analisi Marginalità per SKU"]
   },
   "takeback_program": {
-    content: "**Programma Take-Back — Riepilogo Mese Corrente:**\n\n**Prodotti rientrati: 47 unità** (+12% vs mese scorso)\n\n**Distribuzione per canale di origine:**\n- Contract: 31 unità (66%) — principalmente sedute da ufficio\n- Retail: 11 unità (23%) — mix prodotti\n- Tailor Made: 5 unità (11%)\n\n**Tasso di Remanufacturing: 72%** ✓ (target: 70%)\n- 34 unità → remanufactured e reimmesse in catalogo Outlet\n- 9 unità → smontate per ricambi/materiali\n- 4 unità → avviate a filiera riciclo certificata\n\n**Valore recuperato:** €8,450 in prodotti remanufactured | €1,200 in materiali recuperati\n**CO2 evitata:** 2.8 ton CO2e (vs produzione nuova equivalente)\n\n**Azione raccomandata:** Attivare campagna proattiva take-back sui clienti Contract con prodotti > 7 anni. Potenziale: +30 unità/mese.",
+    content: "**Programma Take-Back — Riepilogo Mese Corrente:**\n\n**Prodotti rientrati: 47 unità** (+12% vs mese scorso)\n\n**Distribuzione per canale di origine:**\n- Contract: 31 unità (66%) — principalmente sedute da ufficio\n- Retail: 11 unità (23%) — mix prodotti\n- Tailor Made: 5 unità (11%)\n\n**Tasso di Remanufacturing: 72%** ✓ (target: 70%)\n- 34 unità → remanufactured e reimmesse in catalogo Outlet\n- 9 unità → smontate per ricambi/materiali\n- 4 unità → avviate a filiera riciclo certificata\n\n**Valore recuperato:** €8,450 prodotti remanufactured | €1,200 materiali recuperati\n**CO2 evitata:** 2.8 ton CO2e (vs produzione nuova equivalente)\n\n**Azione raccomandata:** Attivare campagna proattiva take-back sui clienti Contract con prodotti > 7 anni. Identificati 87 clienti idonei. Potenziale: +30 unità/mese, -5.2 ton CO2e.",
     references: ["Report Take-Back Mensile", "Catalogo Outlet Remanufactured"]
   },
   "default": {
-    content: "Ho analizzato i dati disponibili su circolarità, sostenibilità e canali di vendita. Ecco la situazione attuale:\n\n**Circolarità:** 67.3% materiali riciclati (target 75%) ⚠️\n**Carbon Footprint:** -8.3% vs 2023 (target -20% entro anno) ⚠️\n**Margine Lordo:** Contract 38.4% | Retail 42.1% | Tailor Made 51.2% ✓\n\nVuoi approfondire una di queste aree?"
+    content: "Ho analizzato i dati disponibili su produzione, sostenibilità e canali di vendita. Ecco la situazione attuale:\n\n**OEE impianto: 78.5%** ⚠️ (target 85%) — micro-fermate Linea Sedute Contract\n**Tasso Scarti: 2.8%** ⚠️ (target 2.0%)\n**Carbon Footprint: -8.3% vs 2023** ⚠️ (target -20%)\n**Remanufacturing: 72%** ✓ (target 70%)\n\nVuoi approfondire una di queste aree?"
   }
 };
 
 const suggestedQuestions = [
   {
-    text: "Qual è la percentuale di materiali riciclati e riciclabili nella collezione corrente? Siamo in linea con gli obiettivi di circolarità?",
-    icon: RefreshCw,
-    pillars: ["Circolarità & Economia Circolare", "Sostenibilità"]
+    text: "Qual è l'OEE attuale per linea di produzione? Dove si concentrano le perdite?",
+    icon: Factory,
+    pillars: ["Produzione", "Tecnologia & Operations"]
   },
   {
     text: "Qual è il carbon footprint medio per prodotto Contract vs Tailor Made? Dove possiamo ridurre le emissioni?",
     icon: Leaf,
-    pillars: ["Sostenibilità & Decarbonizzazione", "Circolarità & Economia Circolare"]
+    pillars: ["Sostenibilità & Decarbonizzazione", "Circolarità"]
   },
   {
     text: "Come si distribuisce il margine lordo tra i canali Contract, Retail e Tailor Made questa settimana?",
@@ -75,16 +75,16 @@ export const FactoryGPTChat = ({ onNavigateToFactory }: FactoryGPTChatProps) => 
   const getAIResponse = (question: string) => {
     const lowerQuestion = question.toLowerCase();
     
-    if (lowerQuestion.includes('materiali') || lowerQuestion.includes('riciclat') || lowerQuestion.includes('circolar')) {
-      return mockResponses['circularity_materials'];
+    if (lowerQuestion.includes('oee') || lowerQuestion.includes('scarti') || lowerQuestion.includes('linea') || lowerQuestion.includes('produzione') || lowerQuestion.includes('perdite')) {
+      return mockResponses['oee_production'];
     }
-    if (lowerQuestion.includes('carbon') || lowerQuestion.includes('co2') || lowerQuestion.includes('carbon footprint') || lowerQuestion.includes('emissioni')) {
+    if (lowerQuestion.includes('carbon') || lowerQuestion.includes('co2') || lowerQuestion.includes('emissioni') || lowerQuestion.includes('footprint')) {
       return mockResponses['carbon_footprint'];
     }
     if (lowerQuestion.includes('canali') || lowerQuestion.includes('margine') || lowerQuestion.includes('contract') || lowerQuestion.includes('retail') || lowerQuestion.includes('tailor')) {
       return mockResponses['channel_margins'];
     }
-    if (lowerQuestion.includes('take-back') || lowerQuestion.includes('takeback') || lowerQuestion.includes('remanufactur') || lowerQuestion.includes('rientrat')) {
+    if (lowerQuestion.includes('take-back') || lowerQuestion.includes('takeback') || lowerQuestion.includes('remanufactur') || lowerQuestion.includes('rientrat') || lowerQuestion.includes('riciclat') || lowerQuestion.includes('circolar')) {
       return mockResponses['takeback_program'];
     }
     return mockResponses['default'];

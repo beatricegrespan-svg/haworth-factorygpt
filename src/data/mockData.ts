@@ -10,38 +10,42 @@ import {
 export const kpiData: KPI[] = [
   {
     id: '1',
-    label: 'Materiali Riciclati/Riciclabili',
-    value: 67.3,
+    label: 'OEE',
+    value: 78.5,
     unit: '%',
-    trend: 'up',
-    trendValue: 2.1,
+    target: 85,
+    trend: 'down',
+    trendValue: -2.3,
     status: 'warning'
   },
   {
     id: '2',
+    label: 'Tasso Scarti',
+    value: 2.8,
+    unit: '%',
+    target: 2.0,
+    trend: 'down',
+    trendValue: -0.4,
+    status: 'warning'
+  },
+  {
+    id: '3',
     label: 'Carbon Footprint (vs 2023)',
     value: -8.3,
     unit: '%',
+    target: -20,
     trend: 'down',
     trendValue: -1.2,
     status: 'warning'
   },
   {
-    id: '3',
+    id: '4',
     label: 'Tasso Remanufacturing',
     value: 72,
     unit: '%',
+    target: 70,
     trend: 'up',
     trendValue: 3.5,
-    status: 'good'
-  },
-  {
-    id: '4',
-    label: 'Margine Lordo Tailor Made',
-    value: 51.2,
-    unit: '%',
-    trend: 'up',
-    trendValue: 1.8,
     status: 'good'
   }
 ];
@@ -49,24 +53,24 @@ export const kpiData: KPI[] = [
 export const aiInsights: AIInsight[] = [
   {
     id: '1',
-    title: 'Obiettivo Circolarità a Rischio',
-    description: 'I materiali Tailor Made sono al 58.4% di riciclato, lontani dal target 75%. Il catalogo tessuti non certificati è la causa principale.',
+    title: 'OEE sotto target sulla Linea Sedute',
+    description: 'OEE sceso al 74.1% sulla linea sedute Contract (-2.3% vs ieri) per micro-fermate al nastro di assemblaggio imbottitura. Azione raccomandata: ricalibrazione sensore prossimità.',
     severity: 'warning',
     timestamp: '2 ore fa',
     module: 'production'
   },
   {
     id: '2',
-    title: 'Opportunità Take-Back Contract',
-    description: 'Identificati 87 clienti Contract con prodotti > 7 anni. Campagna proattiva take-back potrebbe generare +30 unità/mese e 5.2 ton CO2e risparmiata.',
-    severity: 'info',
+    title: 'Obiettivo Carbon Footprint a Rischio',
+    description: 'A -8.3% vs target -20% entro fine anno. Il principale driver è la supply chain Tailor Made (Scope 3). Sostituire 1 fornitore tessuti porterebbe al -22%, superando il target.',
+    severity: 'warning',
     timestamp: '4 ore fa',
     module: 'maintenance'
   },
   {
     id: '3',
     title: 'Sinergia Canali Rilevata',
-    description: 'Clienti Contract che acquistano Tailor Made hanno LTV 2.3x superiore. Suggerito cross-selling mirato su 23 account chiave.',
+    description: 'Clienti Contract che acquistano Tailor Made hanno LTV 2.3x superiore. Suggerito cross-selling mirato su 23 account chiave per +€18,000 margine/mese.',
     severity: 'info',
     timestamp: '1 giorno fa',
     module: 'knowledge'
@@ -87,24 +91,24 @@ export const calendarEvents: CalendarEvent[] = [
 export const suggestedActions: SuggestedAction[] = [
   {
     id: '1',
-    title: 'Aggiornare Catalogo Materiali Tailor Made',
-    description: 'Sostituire fornitori tessuti non certificati con alternative Oeko-Tex',
-    actionType: 'procedure',
+    title: 'Ricalibra Sensore Linea Sedute Contract',
+    description: 'Micro-fermate al nastro assemblaggio causano OEE 74.1% (target 85%)',
+    actionType: 'maintenance',
     priority: 'high',
-    aiReason: 'Porterebbe circolarità Tailor Made da 58.4% a ~73%, avvicinandosi al target 75%'
+    aiReason: 'Stimato recupero +4.2% OEE. Impatto produzione: +85 unità/giorno'
   },
   {
     id: '2',
-    title: 'Lanciare Campagna Take-Back Contract',
-    description: '87 clienti idonei con prodotti > 7 anni identificati nel CRM',
-    actionType: 'analysis',
-    priority: 'medium',
-    aiReason: 'Potenziale +30 unità/mese, +€9,650 valore recuperato, -5.2 ton CO2e'
+    title: 'Sostituisci Fornitore Tessuti Tailor Made',
+    description: 'Fornitore attuale non certificato pesa 14% delle emissioni Scope 3 totali',
+    actionType: 'procedure',
+    priority: 'high',
+    aiReason: 'Alternativa Oeko-Tex disponibile. Riduzione stimata: -19.9 ton CO2e/anno, carbon footprint al -22%'
   },
   {
     id: '3',
     title: 'Cross-Selling Tailor Made su Account Contract',
-    description: '23 account chiave con alta propensione all\'acquisto Tailor Made',
+    description: '23 account chiave con alta propensione all\'acquisto Tailor Made identificati',
     actionType: 'analysis',
     priority: 'medium',
     aiReason: 'LTV medio 2.3x superiore. Stima impatto: +€18,000 margine/mese'
@@ -209,7 +213,7 @@ export const playbooks: Playbook[] = [
 ];
 
 export const preloadedQuestions = [
-  "Qual è la percentuale di materiali riciclati nella collezione corrente?",
+  "Qual è l'OEE attuale per linea di produzione?",
   "Come possiamo ridurre il carbon footprint del Tailor Made?",
   "Qual è il margine lordo per canale questa settimana?",
   "Quanti prodotti sono rientrati con il take-back questo mese?",

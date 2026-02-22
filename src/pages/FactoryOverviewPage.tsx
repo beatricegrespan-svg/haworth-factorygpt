@@ -5,7 +5,7 @@ import {
   AlertTriangle, 
   CheckCircle, 
   AlertCircle, 
-  RefreshCw, 
+  Factory, 
   Leaf, 
   BarChart3,
   DollarSign, 
@@ -34,11 +34,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const getFactoryData = () => ({
-  circularity: {
-    value: 67.3,
-    target: 75,
+  oee: {
+    value: 78.5,
+    target: 85,
     status: 'warning' as const,
-    label: 'Materiali Riciclati',
+    label: 'OEE Impianto',
   },
   carbon: {
     value: -8.3,
@@ -55,7 +55,7 @@ const getFactoryData = () => ({
 });
 
 const recentChats = [
-  { id: '1', title: 'Analisi circolarità collezione', timestamp: '2 ore fa' },
+  { id: '1', title: 'Analisi OEE linea sedute', timestamp: '2 ore fa' },
   { id: '2', title: 'Carbon footprint Tailor Made', timestamp: 'Ieri' },
   { id: '3', title: 'Margini canale Contract', timestamp: '3 giorni fa' },
   { id: '4', title: 'Programma take-back', timestamp: '5 giorni fa' },
@@ -121,8 +121,8 @@ export default function FactoryOverviewPage() {
   };
 
   const appModules = [
-    { label: t('circolaritaAI'), icon: RefreshCw, path: '/circularity', description: t('descCircolarita') },
-    { label: t('sostenibilitaAI'), icon: Leaf, path: '/sustainability', description: t('descSostenibilita') },
+    { label: t('produzioneAI'), icon: Factory, path: '/production', description: t('descProduzione') },
+    { label: t('sostenibilitaCircolaritaAI'), icon: Leaf, path: '/sustainability', description: t('descSostenibilita') },
     { label: t('canaliSinergieAI'), icon: BarChart3, path: '/channels', description: t('descCanali') },
     { label: t('qualitaBrandAI'), icon: CheckCircle, path: '/quality', description: t('descQualita') },
     { label: t('costiMarginalitaAI'), icon: DollarSign, path: '/costs', description: t('descCosti') },
@@ -193,10 +193,10 @@ export default function FactoryOverviewPage() {
         </div>
 
         <div className="grid grid-cols-3 gap-4 mb-8 w-full max-w-4xl">
-          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.circularity.status))}>
-            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.circularity.label}</span>{getStatusIcon(data.circularity.status)}</div>
-            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.circularity.status))}>{data.circularity.value}%</span><span className="text-xs text-white/40">/ {data.circularity.target}%</span></div>
-            <div className="mt-2 text-[10px] text-white/50">Target circolarità trimestrale</div>
+          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.oee.status))}>
+            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.oee.label}</span>{getStatusIcon(data.oee.status)}</div>
+            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.oee.status))}>{data.oee.value}%</span><span className="text-xs text-white/40">/ {data.oee.target}%</span></div>
+            <div className="mt-2 text-[10px] text-white/50">Target OEE impianto</div>
           </div>
           <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.carbon.status))}>
             <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.carbon.label}</span>{getStatusIcon(data.carbon.status)}</div>

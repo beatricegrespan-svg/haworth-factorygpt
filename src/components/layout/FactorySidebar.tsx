@@ -7,9 +7,9 @@ import {
   DollarSign,
   CheckCircle,
   Home,
-  RefreshCw,
   Leaf,
-  BarChart3
+  BarChart3,
+  Factory
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -25,8 +25,8 @@ export const FactorySidebar = ({ onBackToChat }: FactorySidebarProps) => {
   const { t } = useLanguage();
 
   const navItems = [
-    { path: '/circularity', label: t('circolaritaAI'), icon: RefreshCw },
-    { path: '/sustainability', label: t('sostenibilitaAI'), icon: Leaf },
+    { path: '/production', label: t('produzioneAI'), icon: Factory },
+    { path: '/sustainability', label: t('sostenibilitaCircolaritaAI'), icon: Leaf },
     { path: '/channels', label: t('canaliSinergieAI'), icon: BarChart3 },
     { path: '/quality', label: t('qualitaBrandAI'), icon: CheckCircle },
     { path: '/costs', label: t('costiMarginalitaAI'), icon: DollarSign },

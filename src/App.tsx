@@ -7,10 +7,10 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ChatLayout } from "@/components/layout/ChatLayout";
 import { FactoryLayout } from "@/components/layout/FactoryLayout";
 import ChatPage from "@/pages/ChatPage";
+import ProductionPage from "@/pages/ProductionPage";
 import QualityPage from "@/pages/QualityPage";
 import KnowledgePage from "@/pages/KnowledgePage";
 import CostsPage from "@/pages/CostsPage";
-import CircularityPage from "@/pages/CircularityPage";
 import SustainabilityPage from "@/pages/SustainabilityPage";
 import ChannelsPage from "@/pages/ChannelsPage";
 import FactoryOverviewPage from "@/pages/FactoryOverviewPage";
@@ -37,9 +37,9 @@ const App = () => (
             <Route path="/factory" element={<FactoryOverviewPage />} />
             
             {/* Factory modules with factory layout */}
-            <Route path="/circularity" element={
+            <Route path="/production" element={
               <FactoryLayout>
-                <CircularityPage />
+                <ProductionPage />
               </FactoryLayout>
             } />
             <Route path="/sustainability" element={
