@@ -27,7 +27,7 @@ export const FactorySidebar = ({ onBackToChat }: FactorySidebarProps) => {
   const navItems = [
     { path: '/production', label: t('produzioneAI'), icon: Factory },
     { path: '/sustainability', label: t('sostenibilitaCircolaritaAI'), icon: Leaf },
-    { path: '/channels', label: t('canaliSinergieAI'), icon: BarChart3 },
+    
     { path: '/suppliers', label: t('ratingFornitoriAI'), icon: Star },
     { path: '/costs', label: t('costiMarginalitaAI'), icon: DollarSign },
     { path: '/knowledge', label: t('khaiLabel'), icon: BookOpen },

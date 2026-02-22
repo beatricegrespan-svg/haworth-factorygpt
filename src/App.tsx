@@ -11,7 +11,7 @@ import ProductionPage from "@/pages/ProductionPage";
 import KnowledgePage from "@/pages/KnowledgePage";
 import CostsPage from "@/pages/CostsPage";
 import SustainabilityPage from "@/pages/SustainabilityPage";
-import ChannelsPage from "@/pages/ChannelsPage";
+
 import SuppliersPage from "@/pages/SuppliersPage";
 import FactoryOverviewPage from "@/pages/FactoryOverviewPage";
 import NotFound from "@/pages/NotFound";
@@ -45,11 +45,6 @@ const App = () => (
             <Route path="/sustainability" element={
               <FactoryLayout>
                 <SustainabilityPage />
-              </FactoryLayout>
-            } />
-            <Route path="/channels" element={
-              <FactoryLayout>
-                <ChannelsPage />
               </FactoryLayout>
             } />
             <Route path="/suppliers" element={
