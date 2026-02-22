@@ -118,7 +118,7 @@ export default function FactoryOverviewPage() {
   const appModules = [
     { label: t('produzioneAI'), icon: Factory, path: '/production', description: t('descProduzione') },
     { label: t('sostenibilitaCircolaritaAI'), icon: Leaf, path: '/sustainability', description: t('descSostenibilita') },
-    { label: t('canaliSinergieAI'), icon: BarChart3, path: '/channels', description: t('descCanali') },
+    
     { label: t('ratingFornitoriAI'), icon: Star, path: '/suppliers', description: t('descFornitori') },
     { label: t('costiMarginalitaAI'), icon: DollarSign, path: '/costs', description: t('descCosti') },
     { label: t('khaiLabel'), icon: BookOpen, path: '/knowledge', description: t('descKnowledge') },
