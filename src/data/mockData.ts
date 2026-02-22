@@ -54,7 +54,7 @@ export const aiInsights: AIInsight[] = [
   {
     id: '1',
     title: 'OEE sotto target sulla Linea Sedute',
-    description: 'OEE sceso al 74.1% sulla linea sedute Contract (-2.3% vs ieri) per micro-fermate al nastro di assemblaggio imbottitura. Azione raccomandata: ricalibrazione sensore prossimità.',
+    description: 'OEE sceso al 74.1% sulla linea sedute Contract (-2.3% vs ieri) per micro-fermate al nastro assemblaggio imbottitura. Ricalibrazione sensore prossimità raccomandata.',
     severity: 'warning',
     timestamp: '2 ore fa',
     module: 'production'
@@ -62,7 +62,7 @@ export const aiInsights: AIInsight[] = [
   {
     id: '2',
     title: 'Obiettivo Carbon Footprint a Rischio',
-    description: 'A -8.3% vs target -20% entro fine anno. Il principale driver è la supply chain Tailor Made (Scope 3). Sostituire 1 fornitore tessuti porterebbe al -22%, superando il target.',
+    description: 'A -8.3% vs target -20% entro fine anno. Il principale driver è la supply chain Tailor Made (Scope 3). Sostituire il fornitore tessuti TM-04 porterebbe al -22%.',
     severity: 'warning',
     timestamp: '4 ore fa',
     module: 'maintenance'
@@ -70,7 +70,7 @@ export const aiInsights: AIInsight[] = [
   {
     id: '3',
     title: 'Sinergia Canali Rilevata',
-    description: 'Clienti Contract che acquistano Tailor Made hanno LTV 2.3x superiore. Suggerito cross-selling mirato su 23 account chiave per +€18,000 margine/mese.',
+    description: 'Clienti Contract che acquistano Tailor Made hanno LTV 2.3x superiore. Cross-selling su 23 account chiave: stima +€18,000 margine/mese.',
     severity: 'info',
     timestamp: '1 giorno fa',
     module: 'knowledge'
@@ -99,11 +99,11 @@ export const suggestedActions: SuggestedAction[] = [
   },
   {
     id: '2',
-    title: 'Sostituisci Fornitore Tessuti Tailor Made',
-    description: 'Fornitore attuale non certificato pesa 14% delle emissioni Scope 3 totali',
+    title: 'Sostituisci Fornitore Tessuti TM-04',
+    description: 'Fornitore non certificato: ESG 42/100, pesa 14% delle emissioni Scope 3 totali',
     actionType: 'procedure',
     priority: 'high',
-    aiReason: 'Alternativa Oeko-Tex disponibile. Riduzione stimata: -19.9 ton CO2e/anno, carbon footprint al -22%'
+    aiReason: 'Alternativa Oeko-Tex disponibile. -19.9 ton CO2e/anno, carbon footprint al -22%'
   },
   {
     id: '3',
@@ -116,61 +116,17 @@ export const suggestedActions: SuggestedAction[] = [
 ];
 
 export const knowledgeDocuments: KnowledgeDocument[] = [
-  {
-    id: '1',
-    title: 'Procedura Standard Circolarità Materiali',
-    category: 'procedures',
-    tags: ['circolarità', 'materiali', 'riciclo'],
-    lastUpdated: '2025-01-10',
-    excerpt: 'Guida completa per la selezione e certificazione dei materiali riciclati nelle collezioni Haworth Lifestyle.'
-  },
-  {
-    id: '2',
-    title: 'Manuale Programma Take-Back',
-    category: 'work-instructions',
-    tags: ['take-back', 'remanufacturing', 'economia circolare'],
-    lastUpdated: '2025-01-08',
-    excerpt: 'Istruzioni per la gestione dei prodotti rientrati: valutazione, remanufacturing e smaltimento certificato.'
-  },
-  {
-    id: '3',
-    title: 'Standard Qualità Collezioni - ISO 9001',
-    category: 'quality-standards',
-    tags: ['qualità', 'ISO', 'brand'],
-    lastUpdated: '2024-12-15',
-    excerpt: 'Standard qualitativi e criteri di ispezione per tutte le collezioni Contract, Retail e Tailor Made.'
-  },
-  {
-    id: '4',
-    title: 'Protocollo Carbon Footprint',
-    category: 'procedures',
-    tags: ['sostenibilità', 'carbon footprint', 'emissioni'],
-    lastUpdated: '2025-01-05',
-    excerpt: 'Metodologia di calcolo e reporting del carbon footprint per prodotto e per canale.'
-  },
-  {
-    id: '5',
-    title: 'Certificazioni Fornitori Oeko-Tex',
-    category: 'procedures',
-    tags: ['fornitori', 'certificazione', 'tessuti'],
-    lastUpdated: '2024-11-20',
-    excerpt: 'Requisiti e processo di certificazione per fornitori tessuti e materiali.'
-  },
-  {
-    id: '6',
-    title: 'Guida Cross-Selling Canali',
-    category: 'work-instructions',
-    tags: ['canali', 'cross-selling', 'tailor made'],
-    lastUpdated: '2025-01-12',
-    excerpt: 'Strategie e procedure per il cross-selling tra canali Contract, Retail e Tailor Made.'
-  }
+  { id: '1', title: 'Procedura Standard Circolarità Materiali', category: 'procedures', tags: ['circolarità', 'materiali', 'riciclo'], lastUpdated: '2025-01-10', excerpt: 'Guida completa per la selezione e certificazione dei materiali riciclati nelle collezioni Haworth Lifestyle.' },
+  { id: '2', title: 'Manuale Programma Take-Back', category: 'work-instructions', tags: ['take-back', 'remanufacturing', 'economia circolare'], lastUpdated: '2025-01-08', excerpt: 'Istruzioni per la gestione dei prodotti rientrati: valutazione, remanufacturing e smaltimento certificato.' },
+  { id: '3', title: 'Standard Qualità Collezioni - ISO 9001', category: 'quality-standards', tags: ['qualità', 'ISO', 'brand'], lastUpdated: '2024-12-15', excerpt: 'Standard qualitativi e criteri di ispezione per tutte le collezioni Contract, Retail e Tailor Made.' },
+  { id: '4', title: 'Protocollo Carbon Footprint', category: 'procedures', tags: ['sostenibilità', 'carbon footprint', 'emissioni'], lastUpdated: '2025-01-05', excerpt: 'Metodologia di calcolo e reporting del carbon footprint per prodotto e per canale.' },
+  { id: '5', title: 'Certificazioni Fornitori Oeko-Tex', category: 'procedures', tags: ['fornitori', 'certificazione', 'tessuti'], lastUpdated: '2024-11-20', excerpt: 'Requisiti e processo di certificazione per fornitori tessuti e materiali.' },
+  { id: '6', title: 'Guida Cross-Selling Canali', category: 'work-instructions', tags: ['canali', 'cross-selling', 'tailor made'], lastUpdated: '2025-01-12', excerpt: 'Strategie e procedure per il cross-selling tra canali Contract, Retail e Tailor Made.' }
 ];
 
 export const playbooks: Playbook[] = [
   {
-    id: '1',
-    title: 'Procedura Take-Back Prodotto',
-    description: 'Procedura standard per la gestione di un prodotto rientrato con il programma take-back',
+    id: '1', title: 'Procedura Take-Back Prodotto', description: 'Procedura standard per la gestione di un prodotto rientrato con il programma take-back',
     steps: [
       { id: '1', title: 'Verificare idoneità prodotto al take-back', completed: false },
       { id: '2', title: 'Registrare rientro nel sistema', completed: false },
@@ -182,9 +138,7 @@ export const playbooks: Playbook[] = [
     ]
   },
   {
-    id: '2',
-    title: 'Onboarding Fornitore Certificato',
-    description: 'Procedura per certificare e attivare un nuovo fornitore di materiali riciclati',
+    id: '2', title: 'Onboarding Fornitore Certificato', description: 'Procedura per certificare e attivare un nuovo fornitore di materiali riciclati',
     steps: [
       { id: '1', title: 'Richiesta documentazione certificazioni', completed: false },
       { id: '2', title: 'Verifica certificazione Oeko-Tex', completed: false, linkedDocumentId: '5' },
@@ -196,9 +150,7 @@ export const playbooks: Playbook[] = [
     ]
   },
   {
-    id: '3',
-    title: 'Gestione Deviazione Qualità',
-    description: 'Risposta quando vengono rilevati problemi di qualità su una collezione',
+    id: '3', title: 'Gestione Deviazione Qualità', description: 'Risposta quando vengono rilevati problemi di qualità su una collezione',
     steps: [
       { id: '1', title: 'Bloccare produzione collezione impattata', completed: false },
       { id: '2', title: 'Quarantena prodotti sospetti', completed: false },
@@ -217,6 +169,6 @@ export const preloadedQuestions = [
   "Come possiamo ridurre il carbon footprint del Tailor Made?",
   "Qual è il margine lordo per canale questa settimana?",
   "Quanti prodotti sono rientrati con il take-back questo mese?",
-  "Quali clienti Contract hanno potenziale Tailor Made?",
+  "Quali fornitori hanno il peggior ESG score?",
   "Qual è lo stato degli obiettivi di circolarità?"
 ];

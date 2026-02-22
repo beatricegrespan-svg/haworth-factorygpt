@@ -2,10 +2,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ModuleAIButtons } from '@/components/ai/ModuleAIButtons';
-import { TrendingUp, TrendingDown, Sparkles } from 'lucide-react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, BarChart, Bar, Cell, ReferenceLine, PieChart, Pie } from 'recharts';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { AskFactoryGPTButton } from '@/components/ai/AskFactoryGPTButton';
 
 // === SOSTENIBILITÀ DATA ===
 const sustainabilityKPIs = [
@@ -62,11 +61,11 @@ const takeBackTrend = [
 ];
 
 const takeBackFlow = [
-  { prodotto: 'Seduta Haworth Fern', canale: 'Contract', data: '15 Gen 2025', esito: 'Remanufactured ✓', valore: '€320' },
-  { prodotto: 'Scrivania Workwall', canale: 'Contract', data: '14 Gen 2025', esito: 'Ricambi', valore: '€85' },
-  { prodotto: 'Poltrona Lounge', canale: 'Retail', data: '13 Gen 2025', esito: 'Remanufactured ✓', valore: '€410' },
-  { prodotto: 'Seduta Very', canale: 'Contract', data: '12 Gen 2025', esito: 'Riciclo Certificato', valore: '€45' },
-  { prodotto: 'Pannelli Divisori (x4)', canale: 'Contract', data: '11 Gen 2025', esito: 'Remanufactured ✓', valore: '€280' },
+  { prodotto: 'Haworth Fern (seduta)', canale: 'Contract', data: '15 Gen 2025', esito: 'Remanufactured ✓', valore: '€320' },
+  { prodotto: 'Workwall (scrivania)', canale: 'Contract', data: '14 Gen 2025', esito: 'Ricambi', valore: '€85' },
+  { prodotto: 'Lounge (poltrona)', canale: 'Retail', data: '13 Gen 2025', esito: 'Remanufactured ✓', valore: '€410' },
+  { prodotto: 'Very (seduta)', canale: 'Contract', data: '12 Gen 2025', esito: 'Riciclo Certificato', valore: '€45' },
+  { prodotto: 'Pannelli Divisori x4', canale: 'Contract', data: '11 Gen 2025', esito: 'Remanufactured ✓', valore: '€280' },
 ];
 
 const getBarColor = (percentage: number) => {
@@ -99,7 +98,6 @@ const SustainabilityPage = () => {
         <h1 className="module-header mb-1">{t('sostenibilitaCircolaritaAI')}</h1>
         <p className="text-muted-foreground text-sm">Carbon footprint, decarbonizzazione e metriche di economia circolare</p>
       </div>
-      <ModuleAIButtons moduleName="Sostenibilità" />
 
       <Tabs defaultValue="sostenibilita" className="w-full">
         <TabsList className="grid w-full max-w-md grid-cols-2">
@@ -109,9 +107,9 @@ const SustainabilityPage = () => {
 
         {/* TAB 1 — Sostenibilità */}
         <TabsContent value="sostenibilita" className="space-y-6 mt-6">
+          <ModuleAIButtons moduleName="Sostenibilità" />
           {renderKPICards(sustainabilityKPIs)}
 
-          {/* Carbon Footprint Progression */}
           <Card>
             <CardHeader><CardTitle className="text-lg">Progressione Carbon Footprint vs Target</CardTitle></CardHeader>
             <CardContent>
@@ -135,7 +133,6 @@ const SustainabilityPage = () => {
           </Card>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Emissions by Channel */}
             <Card>
               <CardHeader><CardTitle className="text-lg">Emissioni per Canale (kg CO2e/unità)</CardTitle></CardHeader>
               <CardContent>
@@ -149,7 +146,7 @@ const SustainabilityPage = () => {
                       <ReferenceLine y={12} stroke="hsl(var(--primary))" strokeDasharray="5 5" label="Target 12.0" />
                       <Bar dataKey="co2e" radius={[4, 4, 0, 0]}>
                         {emissionsByChannel.map((entry, index) => (
-                          <Cell key={index} fill={entry.co2e <= 12 ? 'hsl(142, 71%, 45%)' : entry.co2e > 15 ? 'hsl(38, 92%, 50%)' : 'hsl(38, 92%, 50%)'} />
+                          <Cell key={index} fill={entry.co2e <= 12 ? 'hsl(142, 71%, 45%)' : 'hsl(38, 92%, 50%)'} />
                         ))}
                       </Bar>
                     </BarChart>
@@ -158,7 +155,6 @@ const SustainabilityPage = () => {
               </CardContent>
             </Card>
 
-            {/* Scope Breakdown */}
             <Card>
               <CardHeader><CardTitle className="text-lg">Breakdown Emissioni Scope</CardTitle></CardHeader>
               <CardContent>
@@ -193,31 +189,14 @@ const SustainabilityPage = () => {
               </CardContent>
             </Card>
           </div>
-
-          {/* AI Insight — Sostenibilità */}
-          <Card className="border-l-4 border-l-primary">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="w-5 h-5 text-primary" />
-                <h4 className="font-semibold">AI Insight — Sostenibilità</h4>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Il 60% delle emissioni è Scope 3 (supply chain). Il fornitore tessuti non certificato Tailor Made contribuisce da solo al 14% delle emissioni totali. 
-                Sostituirlo ridurrebbe le emissioni di 19.9 ton CO2e/anno, portando il progresso al -22% vs 2023 — superando il target annuale.
-              </p>
-              <div className="mt-4">
-                <AskFactoryGPTButton question="Qual è il carbon footprint medio per prodotto Contract vs Tailor Made? Dove possiamo ridurre le emissioni?" />
-              </div>
-            </CardContent>
-          </Card>
         </TabsContent>
 
         {/* TAB 2 — Circolarità */}
         <TabsContent value="circolarita" className="space-y-6 mt-6">
+          <ModuleAIButtons moduleName="Circolarità" />
           {renderKPICards(circularityKPIs)}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Materials by Category */}
             <Card>
               <CardHeader><CardTitle className="text-lg">% Materiali Riciclati per Categoria</CardTitle></CardHeader>
               <CardContent>
@@ -240,7 +219,6 @@ const SustainabilityPage = () => {
               </CardContent>
             </Card>
 
-            {/* Take-Back Trend */}
             <Card>
               <CardHeader><CardTitle className="text-lg">Take-Back Trend (ultimi 6 mesi)</CardTitle></CardHeader>
               <CardContent>
@@ -260,13 +238,12 @@ const SustainabilityPage = () => {
             </Card>
           </div>
 
-          {/* Take-Back Flow Table */}
           <Card>
             <CardHeader><CardTitle className="text-lg">Flusso Prodotti Take-Back</CardTitle></CardHeader>
             <CardContent>
               <table className="data-table">
                 <thead>
-                  <tr><th>Prodotto</th><th>Canale</th><th>Data Rientro</th><th>Esito</th><th>Valore Recuperato</th></tr>
+                  <tr><th>Prodotto</th><th>Canale</th><th>Data</th><th>Esito</th><th>Valore</th></tr>
                 </thead>
                 <tbody>
                   {takeBackFlow.map((item, i) => (
@@ -280,24 +257,6 @@ const SustainabilityPage = () => {
                   ))}
                 </tbody>
               </table>
-            </CardContent>
-          </Card>
-
-          {/* AI Insight — Circolarità */}
-          <Card className="border-l-4 border-l-primary">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="w-5 h-5 text-primary" />
-                <h4 className="font-semibold">AI Insight — Circolarità</h4>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Il catalogo materiali Tailor Made è il principale ostacolo al target 75% di circolarità (attuale: 58.4%). 
-                Aggiornando i fornitori tessuti con alternative Oeko-Tex certificate, si stima un incremento al 73.1% entro Q2 2025, 
-                con una riduzione aggiuntiva di 18 ton CO2e/anno. Azione raccomandata: avviare RFQ per 3 fornitori alternativi certificati entro fine mese.
-              </p>
-              <div className="mt-4">
-                <AskFactoryGPTButton question="Quanti prodotti sono rientrati con il programma take-back questo mese? Qual è il tasso di remanufacturing?" />
-              </div>
             </CardContent>
           </Card>
         </TabsContent>

@@ -1,10 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ModuleAIButtons } from '@/components/ai/ModuleAIButtons';
-import { TrendingUp, Sparkles } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, ReferenceLine } from 'recharts';
+import { TrendingUp } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from 'recharts';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { AskFactoryGPTButton } from '@/components/ai/AskFactoryGPTButton';
 
 const channelKPIs = [
   { label: 'Revenue Contract', value: 142000, unit: '€', target: 130000, trend: '+3.2%', status: 'good' },
@@ -44,7 +43,6 @@ const crossSellAccounts = [
 
 const ChannelsPage = () => {
   const { t } = useLanguage();
-
   const formatCurrency = (value: number) => `€${(value / 1000).toFixed(1)}k`;
 
   return (
@@ -71,7 +69,6 @@ const ChannelsPage = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Revenue Mix */}
         <Card>
           <CardHeader><CardTitle className="text-lg">Revenue Mix per Canale</CardTitle></CardHeader>
           <CardContent>
@@ -106,7 +103,6 @@ const ChannelsPage = () => {
           </CardContent>
         </Card>
 
-        {/* Margin by Channel */}
         <Card>
           <CardHeader><CardTitle className="text-lg">Margine Lordo per Canale vs Target</CardTitle></CardHeader>
           <CardContent>
@@ -125,7 +121,6 @@ const ChannelsPage = () => {
         </Card>
       </div>
 
-      {/* Tailor Made Revenue Trend */}
       <Card>
         <CardHeader><CardTitle className="text-lg">Revenue Tailor Made Trend (6 mesi)</CardTitle></CardHeader>
         <CardContent>
@@ -143,9 +138,8 @@ const ChannelsPage = () => {
         </CardContent>
       </Card>
 
-      {/* Cross-Sell Table */}
       <Card>
-        <CardHeader><CardTitle className="text-lg">Top Account Contract con Potenziale Tailor Made Cross-Sell</CardTitle></CardHeader>
+        <CardHeader><CardTitle className="text-lg">Top Account Contract — Potenziale Cross-Sell TM</CardTitle></CardHeader>
         <CardContent>
           <table className="data-table">
             <thead>
@@ -163,23 +157,6 @@ const ChannelsPage = () => {
               ))}
             </tbody>
           </table>
-        </CardContent>
-      </Card>
-
-      {/* AI Insight */}
-      <Card className="border-l-4 border-l-primary">
-        <CardContent className="p-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-5 h-5 text-primary" />
-            <h4 className="font-semibold">AI Insight — Canali & Sinergie</h4>
-          </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            I clienti Contract che acquistano Tailor Made hanno LTV 2.3x superiore. Attivare una campagna di cross-selling sui 23 account chiave 
-            potrebbe generare +€18,000 di margine mensile, portando il peso Tailor Made al 20% del revenue totale.
-          </p>
-          <div className="mt-4">
-            <AskFactoryGPTButton question="Come si distribuisce il margine lordo tra i canali Contract, Retail e Tailor Made?" />
-          </div>
         </CardContent>
       </Card>
     </div>
