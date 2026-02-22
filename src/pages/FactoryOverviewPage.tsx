@@ -33,12 +33,34 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Building2 } from 'lucide-react';
 
-const getFactoryData = () => ({
-  oee: { value: 78.5, target: 85, status: 'warning' as const, label: 'OEE Impianto' },
-  carbon: { value: -8.3, target: -20, status: 'warning' as const, label: 'Carbon Footprint vs 2023' },
-  margin: { value: 42.6, target: 40, status: 'good' as const, label: 'Margine Lordo Medio' },
-});
+type PlantKey = 'all' | 'plantA' | 'plantB';
+
+const plantKpiData: Record<PlantKey, { oee: { value: number; target: number; status: 'good' | 'warning'; label: string }; carbon: { value: number; target: number; status: 'good' | 'warning'; label: string }; scrap: { value: number; target: number; status: 'good' | 'warning'; label: string } }> = {
+  plantA: {
+    oee: { value: 81.2, target: 85, status: 'warning', label: 'OEE Impianto' },
+    carbon: { value: -10.1, target: -20, status: 'warning', label: 'Carbon Footprint vs 2023' },
+    scrap: { value: 2.4, target: 2.0, status: 'warning', label: 'Tasso Scarti' },
+  },
+  plantB: {
+    oee: { value: 75.8, target: 85, status: 'warning', label: 'OEE Impianto' },
+    carbon: { value: -6.5, target: -20, status: 'warning', label: 'Carbon Footprint vs 2023' },
+    scrap: { value: 3.2, target: 2.0, status: 'warning', label: 'Tasso Scarti' },
+  },
+  all: {
+    oee: { value: 78.5, target: 85, status: 'warning', label: 'OEE Impianto' },
+    carbon: { value: -8.3, target: -20, status: 'warning', label: 'Carbon Footprint vs 2023' },
+    scrap: { value: 2.8, target: 2.0, status: 'warning', label: 'Tasso Scarti' },
+  },
+};
 
 const recentChats = [
   { id: '1', title: 'Analisi OEE linea sedute', timestamp: '2 ore fa' },
@@ -73,18 +95,14 @@ const getStatusIcon = (status: 'good' | 'warning' | 'critical') => {
 
 export default function FactoryOverviewPage() {
   const navigate = useNavigate();
-  const [data, setData] = useState(getFactoryData());
+  const [selectedPlant, setSelectedPlant] = useState<PlantKey>('all');
+  const data = plantKpiData[selectedPlant];
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [requestAgentOpen, setRequestAgentOpen] = useState(false);
   const [agentForm, setAgentForm] = useState({ sintesi: '', descrizione: '', comeOggi: 'non_viene_fatto', altroText: '' });
   const [agentSubmitted, setAgentSubmitted] = useState(false);
   const { language: lang, setLanguage: setLang, t } = useLanguage();
-
-  useEffect(() => {
-    const interval = setInterval(() => setData(getFactoryData()), 30000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleNewChat = () => navigate('/');
 
@@ -152,7 +170,20 @@ export default function FactoryOverviewPage() {
       </aside>
 
       <main className="flex-1 flex flex-col items-center justify-center p-6 relative">
-        <div className="absolute top-4 right-6">
+        <div className="absolute top-4 right-6 flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <Building2 className="w-4 h-4 text-white/50" />
+            <Select value={selectedPlant} onValueChange={(v) => setSelectedPlant(v as PlantKey)}>
+              <SelectTrigger className="w-[160px] h-9 text-sm bg-white/5 border-white/10 text-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-[hsl(200,10%,12%)] border-white/10">
+                <SelectItem value="all" className="text-white/70">{lang === 'it' ? 'Tutti gli stabilimenti' : 'All Plants'}</SelectItem>
+                <SelectItem value="plantA" className="text-white/70">Plant A — Montelupo</SelectItem>
+                <SelectItem value="plantB" className="text-white/70">Plant B — Fossalta</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="gap-2 text-white/70 hover:text-white hover:bg-white/10">
@@ -176,9 +207,9 @@ export default function FactoryOverviewPage() {
             <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.carbon.label}</span>{getStatusIcon(data.carbon.status)}</div>
             <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.carbon.status))}>{data.carbon.value}%</span><span className="text-xs text-white/40">target {data.carbon.target}%</span></div>
           </div>
-          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.margin.status))}>
-            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.margin.label}</span>{getStatusIcon(data.margin.status)}</div>
-            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.margin.status))}>{data.margin.value}%</span><span className="text-xs text-white/40">target {data.margin.target}%</span></div>
+          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.scrap.status))}>
+            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.scrap.label}</span>{getStatusIcon(data.scrap.status)}</div>
+            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.scrap.status))}>{data.scrap.value}%</span><span className="text-xs text-white/40">target {data.scrap.target}%</span></div>
           </div>
         </div>
 
