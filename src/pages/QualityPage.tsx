@@ -142,12 +142,12 @@ const QualityPage = () => {
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-lg">{t('qualityChecks')}</CardTitle>
           <Select value={lineFilter} onValueChange={setLineFilter}>
-            <SelectTrigger className="w-32"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-[180px]"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">{t('allLines')}</SelectItem>
-              <SelectItem value="Line 1">{t('line')} 1</SelectItem>
-              <SelectItem value="Line 2">{t('line')} 2</SelectItem>
-              <SelectItem value="Line 3">{t('line')} 3</SelectItem>
+              <SelectItem value="Linea Sedute Contract">Sedute Contract</SelectItem>
+              <SelectItem value="Linea Tailor Made">Tailor Made</SelectItem>
+              <SelectItem value="Linea Retail">Retail</SelectItem>
             </SelectContent>
           </Select>
         </CardHeader>

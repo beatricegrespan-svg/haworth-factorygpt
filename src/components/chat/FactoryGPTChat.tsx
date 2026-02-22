@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Sparkles, FileText, ArrowRight, Wrench, DollarSign, BookOpen, CheckCircle, ClipboardList, ArrowLeft } from 'lucide-react';
+import { Send, Sparkles, FileText, ArrowRight, ArrowLeft, RefreshCw, Leaf, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ChatMessage } from '@/types/factory';
 import { Button } from '@/components/ui/button';
@@ -12,60 +12,48 @@ interface FactoryGPTChatProps {
 }
 
 const mockResponses: Record<string, { content: string; references?: string[]; navigateTo?: string }> = {
-  "energy_efficiency": {
-    content: "**Analisi Rapporto Energia / Vetture Prodotte:**\n\n**Linea 2 ha il peggior rapporto energetico: 18.5 kWh/vettura** vs media impianto di 14.2 kWh/vettura.\n\n**Cause dell'inefficienza:**\n1. Le micro-fermate frequenti mantengono i sistemi attivi senza produzione effettiva, aumentando il consumo a vuoto del **31%**\n2. Il sensore di prossimità genera falsi positivi che causano cicli di stop/restart energeticamente costosi\n3. Il sistema di riscaldamento pressa rimane in standby attivo durante le fermate\n\n**Confronto linee:**\n- Linea 1: 13.8 kWh/vettura ✓\n- Linea 2: 18.5 kWh/vettura ⚠️ (+30% vs media)\n- Linea 3: 14.3 kWh/vettura ✓\n\n**Azione raccomandata:** Ricalibrare il sensore Linea 2 e implementare lo spegnimento automatico dei sistemi ausiliari durante le micro-fermate. Risparmio stimato: €2,800/settimana.",
-    references: ["Report Consumi Energetici", "Dashboard Efficienza Linee"]
+  "circularity_materials": {
+    content: "**Analisi Materiali Riciclati — Collezione Corrente:**\n\n**% Materiali Riciclati/Riciclabili: 67.3%** ⚠️ (target trimestrale: 75%)\n\n**Dettaglio per categoria prodotto:**\n- Sedute Contract: 74.2% ✓ (in linea con target)\n- Tavoli & Superfici: 71.8% ✓\n- Accessori & Soft: 48.1% ⚠️ (sotto target — materiali tessili limitanti)\n- Tailor Made: 58.4% ⚠️ (personalizzazioni riducono % riciclato)\n\n**Materiali critici:**\nI tessuti Tailor Made provengono per il 42% da filiere non certificate. Sostituire con fornitori Oeko-Tex certificati porterebbe la % complessiva al 73.1%.\n\n**Azione raccomandata:** Aggiornare il catalogo materiali Tailor Made con alternative riciclate certificate. Risparmio stimato CO2: 18 ton CO2e/anno.",
+    references: ["Catalogo Materiali Certificati", "Report Circolarità Q1 2025"]
   },
-  "tailor_made_changeover": {
-    content: "**Impatto Changeover Tailor Made sull'OEE questa settimana:**\n\n**12 cambi configurazione** completati per ordini Tailor Made, con un impatto complessivo di **-3.1% sull'OEE**.\n\n**Dettaglio:**\n- Tempo totale fermo per setup: **4.2 ore**\n- Tempo medio per changeover: **21 min** (target: 15 min)\n- Linea più impattata: **Linea 1** con 7 cambi configurazione\n\n**Breakdown per linea:**\n- Linea 1: 7 changeover → 2.6h fermo → -4.1% OEE ⚠️\n- Linea 2: 3 changeover → 1.1h fermo → -2.3% OEE\n- Linea 3: 2 changeover → 0.5h fermo → -1.2% OEE\n\n**Root cause dei tempi lunghi:**\nI setup Tailor Made richiedono cambio stampi + ricalibrazione parametri qualità, allungando i tempi del 40% rispetto ai setup standard.\n\n**Azione raccomandata:** Ottimizzare la sequenza ordini per raggruppare configurazioni simili e ridurre i changeover del 30%. Risparmio stimato: 1.3h/settimana.",
-    references: ["Piano Ordini Tailor Made", "Report Setup Changeover"]
+  "carbon_footprint": {
+    content: "**Carbon Footprint per Prodotto — Contract vs Tailor Made:**\n\n**Media CO2e per unità prodotta:**\n- Contract Standard: **12.4 kg CO2e/unità** ✓\n- Tailor Made: **19.7 kg CO2e/unità** ⚠️ (+59% vs Contract)\n- Retail: **14.1 kg CO2e/unità**\n\n**Cause principali del gap Tailor Made:**\n1. Materiali non standardizzati → supply chain più lunga (+4.2 kg CO2e)\n2. Lavorazioni aggiuntive e setup macchine (+2.1 kg CO2e)\n3. Spedizioni parziali più frequenti (+1.0 kg CO2e)\n\n**Opportunità di riduzione:**\n- Consolidare ordini Tailor Made in batch settimanali: -1.2 kg CO2e/unità\n- Fornitori tessuti locali certificati: -2.8 kg CO2e/unità\n- Obiettivo raggiungibile: 15.7 kg CO2e/unità entro Q3 2025\n\n**Target annuale Haworth Lifestyle: -20% carbon footprint vs 2023** → attualmente a -8.3%.",
+    references: ["Report Carbon Footprint 2025", "Piano Decarbonizzazione Haworth"]
   },
-  "oee_drop": {
-    content: "Ieri l'OEE è sceso del 2.3% principalmente a causa di **micro-fermate sulla Linea 2**. Il sensore di prossimità del nastro trasportatore ha generato 12 falsi positivi tra le 06:00 e le 08:00, causando fermi linea per circa 45 minuti in totale.\n\n**Causa principale:** La sensibilità del sensore era troppo alta dopo la calibrazione della settimana scorsa.\n\n**Impatto:** ~€2,100 in valore di produzione perso.\n\n**Azione raccomandata:** Ricalibrare il sensore di prossimità con le impostazioni aggiornate dalle Linee Guida di Calibrazione Sensori.",
-    references: ["Linee Guida Calibrazione Sensori", "Report Performance Produzione"]
+  "channel_margins": {
+    content: "**Margine Lordo per Canale — Settimana Corrente:**\n\n**Contract B2B: 38.4%** ✓ (target: 36%)\n**Retail: 42.1%** ✓ (target: 40%)\n**Tailor Made: 51.2%** ✓✓ (target: 48%)\n\n**Revenue mix questa settimana:**\n- Contract: €142,000 (58% del totale) → margine €54,528\n- Retail: €67,500 (27%) → margine €28,418\n- Tailor Made: €37,200 (15%) → margine €19,046\n\n**Insight AI:**\nIl canale Tailor Made ha il margine più alto ma pesa solo il 15% del revenue. Aumentare il mix Tailor Made al 20% (senza ridurre Contract) porterebbe un incremento margine di ~€12,000/settimana.\n\n**Sinergia rilevata:** I clienti Contract che hanno acquistato Tailor Made negli ultimi 6 mesi hanno un LTV 2.3x superiore alla media.",
+    references: ["Dashboard Canali", "Analisi Marginalità per SKU"]
   },
-  "maintenance_week": {
-    content: "Basandomi sull'analisi predittiva e sulla manutenzione programmata, ecco le priorità di questa settimana:\n\n**Critico (Da Fare Oggi):**\n1. **Sistema Idraulico Pressa #3** - L'analisi delle vibrazioni mostra una probabilità del 73% di guasto pompa entro 72 ore. Tempo di fermo stimato in caso di guasto: 8+ ore.\n\n**Alta Priorità (Questa Settimana):**\n2. **Nastro Trasportatore Linea 2** - Ricalibrare i sensori che causano micro-fermate\n3. **Unità Confezionamento A** - Lubrificazione mensile (programmata venerdì)\n\n**Risparmio Potenziale:** Completare la manutenzione idraulica in modo proattivo potrebbe far risparmiare €15,000+ in riparazioni di emergenza e produzione persa.",
-    references: ["Ordine di Lavoro WO-2024-0156", "Piano Manutenzione Preventiva"]
-  },
-  "scrap_cost": {
-    content: "Analisi costi scarti di oggi:\n\n**Costo Totale Scarti: €3,450**\n\n**Dettaglio per Linea:**\n- Linea 1: €620 (1.8% tasso scarto) ✓ Nel target\n- Linea 2: €1,890 (3.2% tasso scarto) ⚠️ Sopra target\n- Linea 3: €940 (2.1% tasso scarto) ~ Al target\n\n**Problema Linea 2:** Gli scarti più alti correlano con le micro-fermate che causano disallineamento del prodotto. Le sequenze di riavvio dopo ogni stop hanno prodotto 23 pezzi difettosi.\n\n**Raccomandazione:** Sistemare il problema del sensore sulla Linea 2 ridurrebbe gli scarti giornalieri di circa €1,200.",
-    references: ["Report Controllo Qualità", "Dashboard Analisi Scarti"]
-  },
-  "production": {
-    content: "Certo! Ti porto subito alla sezione **Produzione** dove puoi vedere:\n\n- **Shopfloor Digitale (MES)** - Tracciamento ordini e stato produzione in tempo reale\n- **Performance Produzione** - OEE, produzione vs target, bottleneck\n- **Qualità** - Tracciamento difetti e analisi scarti\n\nClicca sul modulo che ti interessa nella barra laterale, oppure posso mostrarti direttamente i dati qui in chat.",
-    navigateTo: "/production"
-  },
-  "maintenance": {
-    content: "Ti porto alla sezione **Manutenzione**! Qui troverai:\n\n- Ordini di lavoro aperti e priorità\n- Analisi predittiva guasti\n- Piano manutenzione preventiva\n- Storico interventi",
-    navigateTo: "/maintenance"
-  },
-  "quality": {
-    content: "Andiamo alla sezione **Qualità**! Qui puoi monitorare:\n\n- Tasso di difettosità per linea\n- Trend qualità nel tempo\n- Analisi cause radice\n- Report ispezioni",
-    navigateTo: "/production/quality"
-  },
-  "costs": {
-    content: "Ecco la sezione **Costi**! Troverai:\n\n- Costi operativi per reparto\n- Analisi costi qualità e scarti\n- Trend e comparazioni\n- Budget vs actual",
-    navigateTo: "/costs"
-  },
-  "factory_overview": {
-    content: "Ecco l'overview dello stato attuale della fabbrica:\n\n**OEE Attuale: 78.5%** ⚠️\n\nNelle ultime 2 ore l'OEE è **diminuito del 2.3%** (era all'80.8% alle 08:00). La causa principale sono le **micro-fermate sulla Linea 2** dovute a falsi positivi del sensore di prossimità del nastro trasportatore.\n\n**Costo Scarti Oggi: €3,450**\n- Linea 1: €620 (1.8%) ✓\n- Linea 2: €1,890 (3.2%) ⚠️ Sopra target\n- Linea 3: €940 (2.1%)\n\n**Prossima Manutenzione Programmata:**\n📅 **16 Gennaio** - Sistema Idraulico Pressa #3 (Priorità Alta)\nTempo stimato: 4 ore | Motivo: Analisi vibrazioni indica usura precoce della pompa\n\n**Azione Consigliata:** Intervenire subito sul sensore Linea 2 per recuperare l'OEE e ridurre gli scarti.",
-    references: ["Production Performance", "Quality", "Procedura Manutenzione Sistema Idraulico"]
-  },
-  "oee_plant_comparison": {
-    content: "**Confronto OEE — Plant 1 vs Plant 2 (ultimi 90 giorni)**\n\n**Media OEE:**\n- Plant 1: **82.4%** (+1.2% vs trimestre precedente) ✓\n- Plant 2: **74.8%** (-2.7% vs trimestre precedente) ⚠️\n\n**Gap: 7.6 punti percentuali**\n\n**Root Cause Analysis — Plant 2:**\n\n**1. Availability (68.3% vs 85.1% Plant 1):**\n→ 14 fermi non pianificati negli ultimi 90gg, di cui 8 legati a guasti sistema idraulico. Tempo medio di ripristino: 3.2h vs 1.1h Plant 1.\n\n**2. Performance (87.2% vs 93.5% Plant 1):**\n→ Velocità ridotta del 12% sulle linee 2 e 4 per problemi ricorrenti di alimentazione materiale. Setup changeover Tailor Made più lunghi (+40% vs Plant 1).\n\n**3. Quality (96.1% vs 98.2% Plant 1):**\n→ Tasso scarto medio 3.1% su Plant 2 vs 1.8% Plant 1. Causa principale: calibrazione pressa non ottimale post-changeover.\n\n**Trend:** Plant 2 in peggioramento costante da 6 settimane. Senza intervento, l'OEE potrebbe scendere sotto il 72% entro fine mese.\n\n**Azioni raccomandate:**\n1. Piano manutenzione straordinaria sistema idraulico Plant 2\n2. Standardizzare procedure changeover Tailor Made (adottare best practice Plant 1)\n3. Implementare calibrazione automatica post-setup",
-    references: ["Report OEE 90gg", "Analisi Comparativa Plant", "Piano Manutenzione Straordinaria"]
+  "takeback_program": {
+    content: "**Programma Take-Back — Riepilogo Mese Corrente:**\n\n**Prodotti rientrati: 47 unità** (+12% vs mese scorso)\n\n**Distribuzione per canale di origine:**\n- Contract: 31 unità (66%) — principalmente sedute da ufficio\n- Retail: 11 unità (23%) — mix prodotti\n- Tailor Made: 5 unità (11%)\n\n**Tasso di Remanufacturing: 72%** ✓ (target: 70%)\n- 34 unità → remanufactured e reimmesse in catalogo Outlet\n- 9 unità → smontate per ricambi/materiali\n- 4 unità → avviate a filiera riciclo certificata\n\n**Valore recuperato:** €8,450 in prodotti remanufactured | €1,200 in materiali recuperati\n**CO2 evitata:** 2.8 ton CO2e (vs produzione nuova equivalente)\n\n**Azione raccomandata:** Attivare campagna proattiva take-back sui clienti Contract con prodotti > 7 anni. Potenziale: +30 unità/mese.",
+    references: ["Report Take-Back Mensile", "Catalogo Outlet Remanufactured"]
   },
   "default": {
-    content: "Ho analizzato i dati disponibili tra Produzione, Manutenzione e Knowledge Base. Ecco cosa ho trovato:\n\nLa fabbrica sta attualmente operando al **78.5% OEE** con alcune aree di attenzione sulla Linea 2. Ci sono 3 ordini di lavoro pendenti per questa settimana, con la manutenzione della pompa idraulica come priorità massima.\n\nVuoi che approfondisca qualche area specifica?"
+    content: "Ho analizzato i dati disponibili su circolarità, sostenibilità e canali di vendita. Ecco la situazione attuale:\n\n**Circolarità:** 67.3% materiali riciclati (target 75%) ⚠️\n**Carbon Footprint:** -8.3% vs 2023 (target -20% entro anno) ⚠️\n**Margine Lordo:** Contract 38.4% | Retail 42.1% | Tailor Made 51.2% ✓\n\nVuoi approfondire una di queste aree?"
   }
 };
 
 const suggestedQuestions = [
-  { text: "Quale linea ha il peggior rapporto energia consumata / vetture prodotte? Cosa sta causando l'inefficienza?", icon: ClipboardList, pillars: ["Tecnologia & Produzione", "Decarbonizzazione"] },
-  { text: "Qual è l'impatto sull'OEE dei cambi di configurazione (setup changeover) legati agli ordini Tailor Made questa settimana?", icon: Wrench, pillars: ["Diversificazione dell'Offerta", "Tecnologia & Produzione"] },
-  { text: "Qual è l'impatto economico degli scarti di oggi?", icon: DollarSign, pillars: ["Decarbonizzazione", "Tecnologia & Produzione"] },
-  { text: "Dammi un confronto OEE tra Plant 1 e Plant 2 negli ultimi 90 giorni, con root cause analysis.", icon: BookOpen, pillars: ["Tecnologia & Produzione", "Diversificazione dell'Offerta"] },
+  {
+    text: "Qual è la percentuale di materiali riciclati e riciclabili nella collezione corrente? Siamo in linea con gli obiettivi di circolarità?",
+    icon: RefreshCw,
+    pillars: ["Circolarità & Economia Circolare", "Sostenibilità"]
+  },
+  {
+    text: "Qual è il carbon footprint medio per prodotto Contract vs Tailor Made? Dove possiamo ridurre le emissioni?",
+    icon: Leaf,
+    pillars: ["Sostenibilità & Decarbonizzazione", "Circolarità & Economia Circolare"]
+  },
+  {
+    text: "Come si distribuisce il margine lordo tra i canali Contract, Retail e Tailor Made questa settimana?",
+    icon: BarChart3,
+    pillars: ["Sinergia tra canali", "Costi & Marginalità"]
+  },
+  {
+    text: "Quanti prodotti sono rientrati con il programma take-back questo mese? Qual è il tasso di remanufacturing?",
+    icon: RefreshCw,
+    pillars: ["Circolarità & Economia Circolare", "Sostenibilità"]
+  }
 ];
 
 export const FactoryGPTChat = ({ onNavigateToFactory }: FactoryGPTChatProps) => {
@@ -87,38 +75,17 @@ export const FactoryGPTChat = ({ onNavigateToFactory }: FactoryGPTChatProps) => 
   const getAIResponse = (question: string) => {
     const lowerQuestion = question.toLowerCase();
     
-    if ((lowerQuestion.includes('plant') || lowerQuestion.includes('confronto')) && lowerQuestion.includes('oee') && (lowerQuestion.includes('90') || lowerQuestion.includes('root cause'))) {
-      return mockResponses['oee_plant_comparison'];
+    if (lowerQuestion.includes('materiali') || lowerQuestion.includes('riciclat') || lowerQuestion.includes('circolar')) {
+      return mockResponses['circularity_materials'];
     }
-    if ((lowerQuestion.includes('energia') || lowerQuestion.includes('energy')) && (lowerQuestion.includes('vettur') || lowerQuestion.includes('rapporto') || lowerQuestion.includes('inefficienza'))) {
-      return mockResponses['energy_efficiency'];
+    if (lowerQuestion.includes('carbon') || lowerQuestion.includes('co2') || lowerQuestion.includes('carbon footprint') || lowerQuestion.includes('emissioni')) {
+      return mockResponses['carbon_footprint'];
     }
-    if ((lowerQuestion.includes('changeover') || lowerQuestion.includes('setup') || lowerQuestion.includes('tailor made')) && (lowerQuestion.includes('oee') || lowerQuestion.includes('impatto'))) {
-      return mockResponses['tailor_made_changeover'];
+    if (lowerQuestion.includes('canali') || lowerQuestion.includes('margine') || lowerQuestion.includes('contract') || lowerQuestion.includes('retail') || lowerQuestion.includes('tailor')) {
+      return mockResponses['channel_margins'];
     }
-    if ((lowerQuestion.includes('overview') || lowerQuestion.includes('status')) && (lowerQuestion.includes('fabbrica') || lowerQuestion.includes('factory'))) {
-      return mockResponses['factory_overview'];
-    }
-    if (lowerQuestion.includes('oee') && (lowerQuestion.includes('cal') || lowerQuestion.includes('drop') || lowerQuestion.includes('sceso'))) {
-      return mockResponses['oee_drop'];
-    }
-    if ((lowerQuestion.includes('manutenzione') || lowerQuestion.includes('maintenance')) && (lowerQuestion.includes('settimana') || lowerQuestion.includes('week'))) {
-      return mockResponses['maintenance_week'];
-    }
-    if ((lowerQuestion.includes('cost') || lowerQuestion.includes('scart') || lowerQuestion.includes('scrap')) && (lowerQuestion.includes('impatto') || lowerQuestion.includes('oggi'))) {
-      return mockResponses['scrap_cost'];
-    }
-    if (lowerQuestion.includes('produzione') || lowerQuestion.includes('production') || lowerQuestion.includes('mes')) {
-      return mockResponses['production'];
-    }
-    if (lowerQuestion.includes('manutenzione') && lowerQuestion.includes('portami')) {
-      return mockResponses['maintenance'];
-    }
-    if (lowerQuestion.includes('qualità') || lowerQuestion.includes('quality')) {
-      return mockResponses['quality'];
-    }
-    if (lowerQuestion.includes('costi') || lowerQuestion.includes('costs')) {
-      return mockResponses['costs'];
+    if (lowerQuestion.includes('take-back') || lowerQuestion.includes('takeback') || lowerQuestion.includes('remanufactur') || lowerQuestion.includes('rientrat')) {
+      return mockResponses['takeback_program'];
     }
     return mockResponses['default'];
   };
@@ -150,7 +117,6 @@ export const FactoryGPTChat = ({ onNavigateToFactory }: FactoryGPTChatProps) => 
       setMessages(prev => [...prev, aiMessage]);
       setIsTyping(false);
 
-      // Auto-navigate if response suggests it
       if (response.navigateTo) {
         setTimeout(() => {
           navigate(response.navigateTo!);
@@ -232,7 +198,7 @@ export const FactoryGPTChat = ({ onNavigateToFactory }: FactoryGPTChatProps) => 
                 onClick={onNavigateToFactory}
                 className="gap-3 bg-primary hover:bg-primary/90 px-6"
               >
-                <img src={factoryGptLogo} alt="Factory" className="w-6 h-6 object-contain rounded-full" />
+                <img src={factoryGptLogo} alt="Haworth" className="w-6 h-6 object-contain rounded-full" />
                 <span className="text-primary-foreground">{t('goToFactory')}</span>
               </Button>
             </div>
@@ -301,14 +267,14 @@ export const FactoryGPTChat = ({ onNavigateToFactory }: FactoryGPTChatProps) => 
               </div>
             )}
 
-            {/* Portami alla Factory button in center of chat */}
+            {/* Go to Haworth Hub button */}
             <div className="flex justify-center pt-4">
               <Button
                 size="lg"
                 onClick={onNavigateToFactory}
                 className="gap-3 bg-primary hover:bg-primary/90 px-6"
               >
-                <img src={factoryGptLogo} alt="Factory" className="w-6 h-6 object-contain rounded-full" />
+                <img src={factoryGptLogo} alt="Haworth" className="w-6 h-6 object-contain rounded-full" />
                 <span className="text-primary-foreground">{t('goToFactory')}</span>
               </Button>
             </div>

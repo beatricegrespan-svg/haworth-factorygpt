@@ -1,7 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { 
-  Factory, 
-  Wrench, 
   BookOpen, 
   Sparkles,
   ChevronLeft,
@@ -9,7 +7,9 @@ import {
   DollarSign,
   CheckCircle,
   Home,
-  ClipboardList
+  RefreshCw,
+  Leaf,
+  BarChart3
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -25,12 +25,11 @@ export const FactorySidebar = ({ onBackToChat }: FactorySidebarProps) => {
   const { t } = useLanguage();
 
   const navItems = [
-    { path: '/production', label: t('produzioneAI'), icon: Factory, children: [
-      { path: '/production/piano', label: t('pianoProdAI'), icon: ClipboardList },
-    ]},
-    { path: '/maintenance', label: t('manutenzioneAI'), icon: Wrench },
-    { path: '/quality', label: t('qualitaAI'), icon: CheckCircle },
-    { path: '/costs', label: t('costiAI'), icon: DollarSign },
+    { path: '/circularity', label: t('circolaritaAI'), icon: RefreshCw },
+    { path: '/sustainability', label: t('sostenibilitaAI'), icon: Leaf },
+    { path: '/channels', label: t('canaliSinergieAI'), icon: BarChart3 },
+    { path: '/quality', label: t('qualitaBrandAI'), icon: CheckCircle },
+    { path: '/costs', label: t('costiMarginalitaAI'), icon: DollarSign },
     { path: '/knowledge', label: t('khaiLabel'), icon: BookOpen },
   ];
 
@@ -44,11 +43,11 @@ export const FactorySidebar = ({ onBackToChat }: FactorySidebarProps) => {
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 py-5 border-b border-sidebar-border">
         <div className="w-8 h-8 rounded-lg bg-sidebar-primary flex items-center justify-center flex-shrink-0">
-          <Factory className="w-5 h-5 text-sidebar-primary-foreground" />
+          <Leaf className="w-5 h-5 text-sidebar-primary-foreground" />
         </div>
         {!collapsed && (
           <span className="font-semibold text-lg text-sidebar-accent-foreground">
-            Factory
+            Haworth
           </span>
         )}
       </div>
@@ -83,37 +82,19 @@ export const FactorySidebar = ({ onBackToChat }: FactorySidebarProps) => {
       <nav className="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
-          const isChildActive = item.children?.some(c => location.pathname === c.path);
           return (
-            <div key={item.path}>
-              <NavLink
-                to={item.path}
-                className={cn(
-                  "nav-item",
-                  (isActive && !isChildActive) && "nav-item-active",
-                  collapsed && "justify-center px-2"
-                )}
-              >
-                <item.icon className="w-5 h-5 flex-shrink-0" />
-                {!collapsed && <span>{item.label}</span>}
-              </NavLink>
-              {!collapsed && item.children?.map((child) => {
-                const isSubActive = location.pathname === child.path;
-                return (
-                  <NavLink
-                    key={child.path}
-                    to={child.path}
-                    className={cn(
-                      "nav-item ml-6 text-sm",
-                      isSubActive && "nav-item-active"
-                    )}
-                  >
-                    <child.icon className="w-4 h-4 flex-shrink-0" />
-                    <span>{child.label}</span>
-                  </NavLink>
-                );
-              })}
-            </div>
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={cn(
+                "nav-item",
+                isActive && "nav-item-active",
+                collapsed && "justify-center px-2"
+              )}
+            >
+              <item.icon className="w-5 h-5 flex-shrink-0" />
+              {!collapsed && <span>{item.label}</span>}
+            </NavLink>
           );
         })}
       </nav>

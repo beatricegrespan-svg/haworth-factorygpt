@@ -59,9 +59,9 @@ export const TopBar = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="All Lines">{t('allLines')}</SelectItem>
-              <SelectItem value="Line 1">{t('line')} 1</SelectItem>
-              <SelectItem value="Line 2">{t('line')} 2</SelectItem>
-              <SelectItem value="Line 3">{t('line')} 3</SelectItem>
+              <SelectItem value="Contract">Contract</SelectItem>
+              <SelectItem value="Retail">Retail</SelectItem>
+              <SelectItem value="Tailor Made">Tailor Made</SelectItem>
             </SelectContent>
           </Select>
         </div>

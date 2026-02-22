@@ -5,8 +5,9 @@ import {
   AlertTriangle, 
   CheckCircle, 
   AlertCircle, 
-  Cog, 
-  Wrench, 
+  RefreshCw, 
+  Leaf, 
+  BarChart3,
   DollarSign, 
   BookOpen,
   Plus,
@@ -17,7 +18,6 @@ import {
   Sparkles,
   Clock,
   Send,
-  X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -33,44 +33,32 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-// Removed local translations - now using LanguageContext
-
-// Mock data - in production this would come from real-time API
 const getFactoryData = () => ({
-  production: {
-    actual: 230,
-    planned: 260,
-    unit: 'pezzi',
-    percentage: 88.5,
-    status: 'warning' as 'good' | 'warning' | 'critical',
-    insight: 'Leggermente sotto il ritmo previsto',
+  circularity: {
+    value: 67.3,
+    target: 75,
+    status: 'warning' as const,
+    label: 'Materiali Riciclati',
   },
-  oee: {
-    value: 72.4,
-    target: 85,
-    status: 'warning' as 'good' | 'warning' | 'critical',
-    breakdown: {
-      availability: { value: 89, label: 'Disponibilità' },
-      performance: { value: 81, label: 'Performance' },
-      quality: { value: 96, label: 'Qualità' },
-    },
-    worstFactor: 'performance' as const,
+  carbon: {
+    value: -8.3,
+    target: -20,
+    status: 'warning' as const,
+    label: 'Carbon Footprint vs 2023',
   },
-  scrap: {
-    percentage: 4.2,
-    threshold: 3,
-    status: 'critical' as 'good' | 'warning' | 'critical',
-    mainCause: 'Difetti dimensionali',
-    mainLine: 'Linea 2',
+  margin: {
+    value: 42.6,
+    target: 40,
+    status: 'good' as const,
+    label: 'Margine Lordo Medio',
   },
 });
 
-// Mock chat history
 const recentChats = [
-  { id: '1', title: 'Analisi OEE Linea 2', timestamp: '2 ore fa' },
-  { id: '2', title: 'Manutenzione preventiva', timestamp: 'Ieri' },
-  { id: '3', title: 'Report qualità settimanale', timestamp: '3 giorni fa' },
-  { id: '4', title: 'Ottimizzazione Linea 1', timestamp: '5 giorni fa' },
+  { id: '1', title: 'Analisi circolarità collezione', timestamp: '2 ore fa' },
+  { id: '2', title: 'Carbon footprint Tailor Made', timestamp: 'Ieri' },
+  { id: '3', title: 'Margini canale Contract', timestamp: '3 giorni fa' },
+  { id: '4', title: 'Programma take-back', timestamp: '5 giorni fa' },
 ];
 
 const getStatusColor = (status: 'good' | 'warning' | 'critical') => {
@@ -112,7 +100,6 @@ export default function FactoryOverviewPage() {
   const [agentSubmitted, setAgentSubmitted] = useState(false);
   const { language: lang, setLanguage: setLang, t } = useLanguage();
 
-  // Simulate real-time updates
   useEffect(() => {
     const interval = setInterval(() => {
       setData(getFactoryData());
@@ -134,10 +121,11 @@ export default function FactoryOverviewPage() {
   };
 
   const appModules = [
-    { label: t('produzioneAI'), icon: Cog, path: '/production', description: t('descProduzione') },
-    { label: t('manutenzioneAI'), icon: Wrench, path: '/maintenance', description: t('descManutenzione') },
-    { label: t('qualitaAI'), icon: CheckCircle, path: '/quality', description: t('descQualita') },
-    { label: t('costiAI'), icon: DollarSign, path: '/costs', description: t('descCosti') },
+    { label: t('circolaritaAI'), icon: RefreshCw, path: '/circularity', description: t('descCircolarita') },
+    { label: t('sostenibilitaAI'), icon: Leaf, path: '/sustainability', description: t('descSostenibilita') },
+    { label: t('canaliSinergieAI'), icon: BarChart3, path: '/channels', description: t('descCanali') },
+    { label: t('qualitaBrandAI'), icon: CheckCircle, path: '/quality', description: t('descQualita') },
+    { label: t('costiMarginalitaAI'), icon: DollarSign, path: '/costs', description: t('descCosti') },
     { label: t('khaiLabel'), icon: BookOpen, path: '/knowledge', description: t('descKnowledge') },
   ];
 
@@ -205,20 +193,20 @@ export default function FactoryOverviewPage() {
         </div>
 
         <div className="grid grid-cols-3 gap-4 mb-8 w-full max-w-4xl">
-          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.oee.status))}>
-            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{t('oee')}</span>{getStatusIcon(data.oee.status)}</div>
-            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.oee.status))}>{data.oee.value}%</span><span className="text-xs text-white/40">/ {data.oee.target}%</span></div>
-            <div className="mt-2 flex gap-2 text-[10px] text-white/50"><span>D:{data.oee.breakdown.availability.value}%</span><span className={data.oee.worstFactor === 'performance' ? 'text-amber-400' : ''}>P:{data.oee.breakdown.performance.value}%</span><span>Q:{data.oee.breakdown.quality.value}%</span></div>
+          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.circularity.status))}>
+            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.circularity.label}</span>{getStatusIcon(data.circularity.status)}</div>
+            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.circularity.status))}>{data.circularity.value}%</span><span className="text-xs text-white/40">/ {data.circularity.target}%</span></div>
+            <div className="mt-2 text-[10px] text-white/50">Target circolarità trimestrale</div>
           </div>
-          <div className="rounded-xl p-4 border backdrop-blur-sm bg-orange-500/20 border-orange-500/30">
-            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{t('prodVsPlan')}</span><AlertTriangle className="w-4 h-4 text-orange-400" /></div>
-            <div className="flex items-baseline gap-1"><span className="text-2xl font-bold text-orange-400">{data.production.actual}</span><span className="text-sm text-white/40">/ {data.production.planned}</span></div>
-            <div className="mt-2"><div className="w-full bg-white/10 rounded-full h-1.5"><div className="h-1.5 rounded-full transition-all bg-orange-400" style={{ width: `${Math.min(data.production.percentage, 100)}%` }} /></div></div>
+          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.carbon.status))}>
+            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.carbon.label}</span>{getStatusIcon(data.carbon.status)}</div>
+            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.carbon.status))}>{data.carbon.value}%</span><span className="text-xs text-white/40">target {data.carbon.target}%</span></div>
+            <div className="mt-2 text-[10px] text-white/50">Obiettivo decarbonizzazione annuale</div>
           </div>
-          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.scrap.status))}>
-            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{t('scrap')}</span>{getStatusIcon(data.scrap.status)}</div>
-            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.scrap.status))}>{data.scrap.percentage}%</span><span className="text-xs text-white/40">{t('threshold')} {data.scrap.threshold}%</span></div>
-            <div className="mt-2 text-[10px] text-white/50 truncate">{data.scrap.mainLine} • {data.scrap.mainCause}</div>
+          <div className={cn("rounded-xl p-4 border backdrop-blur-sm", getStatusBg(data.margin.status))}>
+            <div className="flex items-center justify-between mb-2"><span className="text-xs font-medium text-white/60 uppercase tracking-wide">{data.margin.label}</span>{getStatusIcon(data.margin.status)}</div>
+            <div className="flex items-baseline gap-1"><span className={cn("text-2xl font-bold", getStatusColor(data.margin.status))}>{data.margin.value}%</span><span className="text-xs text-white/40">target {data.margin.target}%</span></div>
+            <div className="mt-2 text-[10px] text-white/50">Contract + Retail + Tailor Made</div>
           </div>
         </div>
 
@@ -227,7 +215,7 @@ export default function FactoryOverviewPage() {
           <img src={factoryGptLogo} alt="FactoryGPT" className="relative w-48 h-48 object-contain rounded-full" style={{ filter: 'drop-shadow(0 0 30px hsl(var(--primary) / 0.5))' }} />
         </button>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 w-full max-w-5xl">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full max-w-5xl">
           {appModules.map((module) => (
             <button key={module.label} onClick={() => navigate(module.path)} className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/40 rounded-2xl p-6 text-center transition-all duration-200 hover:scale-[1.02]">
               <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-3 transition-colors"><module.icon className="w-7 h-7 text-primary" /></div>
