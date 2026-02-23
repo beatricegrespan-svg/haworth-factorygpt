@@ -11,6 +11,45 @@ interface ModuleAIButtonsProps {
   moduleReferences?: string[];
 }
 
+const moduleSuggestedQuestions: Record<string, string[]> = {
+  'Produzione': [
+    "Qual è l'OEE attuale per linea di produzione?",
+    "Dove si concentrano le micro-fermate oggi?",
+    "Qual è il tasso di scarto per linea questa settimana?",
+    "Quali linee sono sotto target OEE?"
+  ],
+  'Sostenibilità': [
+    "Qual è la progressione del carbon footprint vs target -20%?",
+    "Quali sono le emissioni per canale (kg CO2e/unità)?",
+    "Quanto pesa lo Scope 3 sulle emissioni totali?",
+    "Quanta energia rinnovabile stiamo usando rispetto al target?"
+  ],
+  'Circolarità': [
+    "Qual è la % di materiali riciclati per categoria prodotto?",
+    "Quanti prodotti sono rientrati con il take-back questo mese?",
+    "Qual è il tasso di remanufacturing attuale vs target?",
+    "Quale categoria ha la circolarità più bassa?"
+  ],
+  'Fornitori': [
+    "Quali fornitori hanno ESG score sotto il target 75?",
+    "Qual è il rischio di concentrazione nella supply chain?",
+    "Quali fornitori non hanno certificazioni ambientali?",
+    "Qual è l'OTD medio dei fornitori vs target 95%?"
+  ],
+  'Costi': [
+    "Qual è il costo di produzione per unità questa settimana?",
+    "Come si distribuiscono i costi tra materiali, lavoro ed energia?",
+    "Quali SKU hanno il costo scarto più alto?",
+    "Quali sono i principali cost driver del periodo?"
+  ],
+  'KHAI': [
+    "Quali procedure sono state più consultate questa settimana?",
+    "Ci sono documenti scaduti da aggiornare?",
+    "Qual è lo stato dei playbook operativi attivi?",
+    "Quali certificazioni fornitori sono in scadenza?"
+  ],
+};
+
 const defaultModuleInsights: Record<string, { text: string; references: string[] }> = {
   'Produzione': {
     text: "Problema principale: micro-fermate Linea Sedute Contract. OEE impianto al 78.5% vs target 85%. Azione raccomandata: stima recupero +4.2% OEE, +85 unità/giorno. Linea Tailor Made penalizzata da changeover frequenti: raggruppare ordini simili riduce scarto al 2.2%.",
@@ -97,6 +136,7 @@ export const ModuleAIButtons = ({ moduleName, moduleInsight, moduleReferences }:
           setIsAskOpen(false);
           setIsInvestigateOpen(true);
         }}
+        suggestedQuestions={moduleSuggestedQuestions[moduleName]}
       />
 
       <Dialog open={isInvestigateOpen} onOpenChange={setIsInvestigateOpen}>
