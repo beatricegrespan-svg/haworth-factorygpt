@@ -13,7 +13,7 @@ interface ModuleAIButtonsProps {
 
 const defaultModuleInsights: Record<string, { text: string; references: string[] }> = {
   'Produzione': {
-    text: "Problema principale: micro-fermate Linea Sedute Contract (sensore prossimità nastro assemblaggio imbottitura — 8 falsi positivi tra 06:00 e 08:00). OEE impianto al 78.5% vs target 85%. Azione: ricalibra sensore (45 min) → stima recupero +4.2% OEE, +85 unità/giorno. Linea Tailor Made penalizzata da changeover frequenti: raggruppare ordini simili riduce scarto al 2.2%.",
+    text: "Problema principale: micro-fermate Linea Sedute Contract. OEE impianto al 78.5% vs target 85%. Azione raccomandata: stima recupero +4.2% OEE, +85 unità/giorno. Linea Tailor Made penalizzata da changeover frequenti: raggruppare ordini simili riduce scarto al 2.2%.",
     references: ["Dashboard Produzione", "Report OEE Giornaliero"]
   },
   'Sostenibilità': {
