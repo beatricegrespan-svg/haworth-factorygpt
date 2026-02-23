@@ -23,6 +23,7 @@ interface AskFactoryGPTModalProps {
   isOpen: boolean;
   onClose: () => void;
   onInvestigate?: () => void;
+  suggestedQuestions?: string[];
 }
 
 const mockResponses: Record<string, { content: string; references?: string[] }> = {
@@ -52,7 +53,7 @@ const mockResponses: Record<string, { content: string; references?: string[] }> 
   }
 };
 
-export const AskFactoryGPTModal = ({ isOpen, onClose, onInvestigate }: AskFactoryGPTModalProps) => {
+export const AskFactoryGPTModal = ({ isOpen, onClose, onInvestigate, suggestedQuestions }: AskFactoryGPTModalProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -193,7 +194,7 @@ export const AskFactoryGPTModal = ({ isOpen, onClose, onInvestigate }: AskFactor
                   Suggested Questions
                 </p>
                 <div className="grid gap-2">
-                  {preloadedQuestions.slice(0, 4).map((question, i) => (
+                  {(suggestedQuestions || preloadedQuestions.slice(0, 4)).map((question, i) => (
                     <button
                       key={i}
                       onClick={() => handleSend(question)}
